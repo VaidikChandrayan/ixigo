@@ -1,0 +1,52 @@
+package com.pages;
+
+import java.io.FileInputStream;
+import java.util.Properties;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+public class BasePage {
+	WebDriver driver;
+	Properties prop;
+	
+	@FindBy(xpath="//span[contains(@class, 'absolute') and contains(@class, 'top-20') and contains(text(), 'From')]")
+		WebElement FromOneWay;
+	
+	@FindBy(xpath="//span[contains(text(),'Pune')]")
+	WebElement puneOption;
+	
+	@FindBy(xpath="//span[contains(@class, 'absolute') and contains(@class, 'top-20') and contains(text(), 'To')]")
+     WebElement ToOneWay;
+	
+	@FindBy(xpath="//span[contains(text(),'Delhi')]")
+	WebElement delhiOption;
+	
+	@FindBy(xpath="//button[contains(text(),\\\"One Way\\\")]")
+	WebElement oneWayButton;
+	
+	@FindBy(css="abbr[aria-label='July 5, 2025']]")
+	WebElement dateClick;
+	
+	@FindBy(xpath="//button[contains(text(),\\\"Done\\\")]")
+	WebElement doneButton;
+	
+	BasePage(WebDriver driver)
+	{
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+		loadProperties();
+	}
+	private void loadProperties() {
+        try {
+            prop = new Properties();
+            FileInputStream fis = new FileInputStream("C:\\Sprint-workspace\\ixigo\\src\\test\\resource\\PropertieFiles\\FlightSearch.properties");
+            prop.load(fis);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+	
+	
+}

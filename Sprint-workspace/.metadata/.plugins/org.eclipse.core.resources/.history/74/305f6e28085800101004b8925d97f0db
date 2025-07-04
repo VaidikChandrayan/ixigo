@@ -1,0 +1,32 @@
+package com.pages;
+
+import java.util.Properties;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+public class BasePage {
+	WebDriver driver;
+	Properties prop;
+	
+	@FindBy(xpath="//span[contains(@class, 'absolute') and contains(@class, 'top-20') and contains(text(), 'From')]")
+		WebElement FromOneWay;
+	
+	@FindBy(xpath="//span[contains(text(),'Pune')]")
+	WebElement puneOption;
+	
+	@FindBy(xpath="//span[contains(@class, 'absolute') and contains(@class, 'top-20') and contains(text(), 'To')]")
+     WebElement ToOneWay;
+	
+	@FindBy(xpath="//span[contains(text(),'Delhi')]")
+	WebElement delhiOption;
+	
+	@FindBy(xpath="//button[contains(text(),\\\"One Way\\\")]")
+	WebElement oneWayButton;
+	@FindBy(xpath="//button[contains(text(),\\\"Done\\\")]")
+	WebElement ;
+	
+	
+	
+}

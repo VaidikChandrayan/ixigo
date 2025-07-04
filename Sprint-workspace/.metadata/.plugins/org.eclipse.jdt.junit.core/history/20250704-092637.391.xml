@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="TestRunnerjunit" project="ixigo" tests="1" started="1" failures="0" errors="1" ignored="0">
+  <testsuite name="com.runner.TestRunnerjunit" time="0.53">
+    <testsuite name="Ixigo Flight Search Module" time="0.53">
+      <testcase name="Search one-way flight with valid details" classname="Ixigo Flight Search Module" time="0.53">
+        <error>io.cucumber.junit.UndefinedStepException: The step 'User selects one way trip' and 2 other step(s) are undefined.
+You can implement these steps using the snippet(s) below:
+
+@When("User selects one way trip")
+public void user_selects_one_way_trip() {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+@When("User enters city in the From field")
+public void user_enters_city_in_the_from_field() {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+@When("User enters city in the To field")
+public void user_enters_city_in_the_to_field() {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+&#13;
+&#13;
+</error>
+      </testcase>
+    </testsuite>
+  </testsuite>
+</testrun>

@@ -1,0 +1,100 @@
+package com.pages;
+
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.InputEvent;
+import java.io.FileInputStream;
+import java.util.Properties;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class BasePage {
+	WebDriver driver;
+	Properties prop;
+	
+	@FindBy(xpath="//span[contains(@class, 'absolute') and contains(@class, 'top-20') and contains(text(), 'From')]")
+		WebElement FromOneWay;
+	
+	@FindBy(xpath="//span[contains(text(),'PNQ')]")
+	WebElement puneOption;
+	
+	@FindBy(xpath="//span[contains(@class, 'absolute') and contains(@class, 'top-20') and contains(text(), 'To')]")
+     WebElement ToOneWay;
+	
+	@FindBy(xpath="//p[contains(text(),'DEL - New Delhi')]")
+	WebElement delhiOption;
+	
+	@FindBy(xpath="//button[contains (text(),\"One Way\")]")
+	WebElement oneWayButton;
+	
+	@FindBy(xpath="//*[text()='Fri, 04 Jul']")
+	WebElement dateField;
+	
+	@FindBy(css="abbr[aria-label='July 5, 2025']]")
+	WebElement dateClick;
+	
+	@FindBy(xpath="//button[contains(text(),\\\"Done\\\")]")
+	WebElement doneButton;
+	
+	public BasePage(WebDriver driver)
+	{
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+		loadProperties();
+	}
+	private void loadProperties() {
+        try {
+            prop = new Properties();
+            FileInputStream fis = new FileInputStream("C:\\Sprint-workspace\\ixigo\\src\\test\\resource\\PropertieFiles\\FlightSearch.properties");
+            prop.load(fis);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+	
+	public void onewaySelect() 
+	{
+		WebElement oneWayButton = driver.findElement(By.xpath("//button[contains (text(),\"One Way\")]"));
+				oneWayButton.click();
+	}
+	
+	public void fromData()
+		{
+			FromOneWay.click();
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//FromOneWay.sendKeys("Pune");
+		Actions actions = new Actions(driver);
+		actions.sendKeys(prop.getProperty("FromOneWay")).perform();
+
+	}
+	
+	public void ToData()
+        {
+		Actions actions = new Actions(driver);
+		ToOneWay.click();
+		actions.sendKeys(prop.getProperty("ToOneWay"));
+		delhiOption.click();
+	   }
+	
+	public void selctDate()
+	    {
+		
+ 
+	       WebElement dateField=driver.findElement(By.xpath("//*[text()='Fri, 04 Jul']"));
+	       dateField.click();
+	       
+	       WebElement dateElement = driver.findElement(By.cssSelector("abbr[aria-label='July 5, 2025']"));
+	       dateElement.click();
+	    }
+	
+}

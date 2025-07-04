@@ -1,0 +1,43 @@
+package com.stepDefinition;
+
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+public class FlightTest {
+	@Given("User is logged into Ixigo application")
+	public void user_is_logged_into_ixigo_application() {
+		
+	    
+	}
+	@Given("User is on the flight search page")
+	public void user_is_on_the_flight_search_page() {
+	   
+	}
+	@When("User selects {string} trip")
+	public void user_selects_trip(String string) {
+	    
+	}
+	@When("User enters {string} in the From field")
+	public void user_enters_in_the_from_field(String string) {
+	  
+	}
+	@When("User enters {string} in the To field")
+	public void user_enters_in_the_to_field(String string) {
+	    
+	}
+	@When("User selects a future departure date")
+	public void user_selects_a_future_departure_date() {
+	   
+	}
+	@When("User clicks on Search flights")
+	public void user_clicks_on_search_flights() {
+	   
+	}
+	@Then("User is redirected to result page with available flights")
+	public void user_is_redirected_to_result_page_with_available_flights() {
+	    
+	}
+
+
+}

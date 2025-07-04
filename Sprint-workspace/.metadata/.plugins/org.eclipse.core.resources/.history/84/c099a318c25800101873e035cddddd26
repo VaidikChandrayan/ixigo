@@ -1,0 +1,62 @@
+package com.stepDefinition;
+
+import org.openqa.selenium.WebDriver;
+
+import com.pages.BasePage;
+import com.setup.BaseSteps;
+
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+public class FlightTest {
+	WebDriver driver;
+	BasePage pg;
+	
+//------------------------------------------Background-------------------------------------------------------
+	
+	@Given("User is logged into Ixigo application")
+	public void user_is_logged_into_ixigo_application() {
+		
+	    
+	}
+	@Given("User is on the flight search page")
+	public void user_is_on_the_flight_search_page() {
+	   driver=BaseSteps.chromedriver();
+	}
+	
+	
+	
+	@When("User selects one way trip")
+	public void user_selects_one_way_trip() {
+		pg = new BasePage(driver);
+		pg.onewaySelect();
+		
+		
+	    
+	}
+	@When("User enters city in the From field")
+	public void user_enters_city_in_the_from_field() {
+		pg.fromData();
+	    
+	}
+	@When("User enters city in the To field")
+	public void user_enters_city_in_the_to_field() {
+		pg.ToData();
+	    
+	}
+	@When("User selects a future departure date")
+	public void user_selects_a_future_departure_date() {
+	   pg.selctDate();
+	}
+	@When("User clicks on Search flights")
+	public void user_clicks_on_search_flights() {
+	   
+	}
+	@Then("User is redirected to result page with available flights")
+	public void user_is_redirected_to_result_page_with_available_flights() {
+	    
+	}
+
+
+}

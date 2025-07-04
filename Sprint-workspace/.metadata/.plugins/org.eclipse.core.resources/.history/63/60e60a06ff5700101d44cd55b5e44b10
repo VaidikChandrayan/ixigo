@@ -1,0 +1,9 @@
+package com.runner;
+
+@RunWith(Cucumber.class)
+@CucumberOptions(features="src/test/java/com/stepDefinition/FlightTest.java", 
+				  glue={"com.StepDefinition"}
+)
+public class TestRunnerjunit {
+
+}

@@ -1,0 +1,9 @@
+Feature: Ixigo Flight Search Module
+ 
+Background:
+     Given User is logged into Ixigo application
+     And User is on the flight search page
+
+@oneway
+Scenario: Search one-way flight with valid details
+When User selects "One-Way" trip
