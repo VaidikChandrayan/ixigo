@@ -3,6 +3,7 @@ package com.stepDefinition;
 import org.openqa.selenium.WebDriver;
 
 import com.pages.BasePage;
+import com.pages.SearchTripPage;
 import com.setup.BaseSteps;
 
 import io.cucumber.java.en.Given;
@@ -12,6 +13,7 @@ import io.cucumber.java.en.When;
 public class FlightTest {
 	WebDriver driver;
 	BasePage pg;
+	SearchTripPage st;
 	
 //------------------------------------------Background-------------------------------------------------------
 	
@@ -25,12 +27,13 @@ public class FlightTest {
 	   driver=BaseSteps.chromedriver();
 	}
 	
-	
+//------------------------------------Scenario 1------------------------------------------------------------------	
 	
 	@When("User selects one way trip")
 	public void user_selects_one_way_trip() {
 		pg = new BasePage(driver);
-		pg.onewaySelect();
+		st = new SearchTripPage(driver);
+		st.onewaySelect();
 		
 		
 	    
@@ -47,7 +50,7 @@ public class FlightTest {
 	}
 	@When("User selects a future departure date")
 	public void user_selects_a_future_departure_date() {
-	   pg.selctDate();
+	   st.selctDate();
 	}
 	@When("User clicks on Search flights")
 	public void user_clicks_on_search_flights() {
@@ -57,6 +60,45 @@ public class FlightTest {
 	@Then("User is redirected to result page with available flights")
 	public void user_is_redirected_to_result_page_with_available_flights() {
 	    
+	}
+	
+	//------------------------------------Scenario 2------------------------------------------------------------------
+
+	
+	@When("User selects the round trip")
+	public void user_selects_the_round_trip() {
+		pg = new BasePage(driver);
+		st = new SearchTripPage(driver);
+		st.roundTrip();
+		
+	    
+	}
+	@When("User enters city name in the From field")
+	public void user_enters_city_name_in_the_from_field() {
+		pg.fromData();
+	   
+	}
+	@When("User enters city name in the To field")
+	public void user_enters_city_name_in_the_to_field() {
+		pg.ToData();
+	   
+	}
+	@When("User selects a departure date")
+	public void user_selects_a_departure_date() {
+	  st.selctDate();
+	}
+	@When("User selects a future return date")
+	public void user_selects_a_future_return_date() {
+	   st.selctDate();
+	}
+	@When("User clicks on the Search flights")
+	public void user_clicks_on_the_search_flights() {
+		pg.clickSearch();
+	    
+	}
+	@Then("User is redirected to result page with the available flights")
+	public void user_is_redirected_to_result_page_with_the_available_flights() {
+	  
 	}
 
 

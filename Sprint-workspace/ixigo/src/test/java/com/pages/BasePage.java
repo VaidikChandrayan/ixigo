@@ -23,32 +23,19 @@ public class BasePage {
 	@FindBy(xpath="//span[contains(@class, 'absolute') and contains(@class, 'top-20') and contains(text(), 'From')]")
 		WebElement FromOneWay;
 	
-	@FindBy(xpath="//span[contains(text(),'PNQ')]")
+	@FindBy(xpath="//p[contains(text(),'PNQ')]")
 	WebElement puneOption;
 	
 	@FindBy(xpath="//span[contains(@class, 'absolute') and contains(@class, 'top-20') and contains(text(), 'To')]")
      WebElement ToOneWay;
 	
-	@FindBy(xpath="//span[contains(text(),\"DEL\")]")
+	@FindBy(xpath="//p[contains(text(),'DEL')]")
 	WebElement delhiOption;
-	
-	@FindBy(xpath="//button[contains (text(),\"One Way\")]")
-	WebElement oneWayButton;
-	
-	@FindBy(xpath="//*[text()='Sat, 05 Jul']")
-	WebElement dateField;
-	
-	@FindBy(css="abbr[aria-label='July 6, 2025']")
-	WebElement dateClick;
-//	
-//	@FindBy(xpath="//button[contains(text(),\\\"Done\\\")]")
-//	WebElement doneButton;
-	
-//	@FindBy(xpath="//p[@data-testid=\"pax\"]")
-//	WebElement travellerOption;
 	
 	@FindBy(xpath="//button[normalize-space()='Search']")
 	WebElement searchButton;
+	
+	
 	
 	
 	public BasePage(WebDriver driver)
@@ -67,17 +54,12 @@ public class BasePage {
         }
     }
 	
-	public void onewaySelect() 
-	{
-		WebElement oneWayButton = driver.findElement(By.xpath("//button[contains (text(),\"One Way\")]"));
-				oneWayButton.click();
-	}
-	
+
 	public void fromData()
 		{
            Actions actions = new Actions(driver);
 	       FromOneWay.click();
-	    actions.sendKeys(prop.getProperty("FromOneWay")).pause(Duration.ofSeconds(1)).perform();
+	    actions.sendKeys(prop.getProperty("FromCity")).pause(Duration.ofSeconds(1)).perform();
 
 	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	    WebElement sugg = wait.until(ExpectedConditions.elementToBeClickable(puneOption));
@@ -90,7 +72,7 @@ public class BasePage {
 		Actions actions = new Actions(driver);
 	    ToOneWay.click();
 
-	    actions.sendKeys(prop.getProperty("ToOneWay")).pause(Duration.ofSeconds(1)).perform();
+	    actions.sendKeys(prop.getProperty("ToCity")).pause(Duration.ofSeconds(1)).perform();
 
 	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	    WebElement suggestion = wait.until(ExpectedConditions.elementToBeClickable(delhiOption));
@@ -99,32 +81,15 @@ public class BasePage {
 
 	   }
 	
-	public void selctDate()
-	    {
-		
-		    dateField.click();
-		    try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		    dateClick.click();
-		    
- 
-//	       WebElement dateField=driver.findElement(By.xpath("//*[text()='Sat, 05 Jul']"));
-////	       dateField.click();
-////	       driver.findElement(By.xpath("//button[.//abbr[@aria-label='July 7, 2025']]")).click();
-//	       WebElement abbr = driver.findElement(By.cssSelector("abbr[aria-label='July 7, 2025']"));
-//	       WebElement button = abbr.findElement(By.xpath("./ancestor::button"));
-//	       button.click();
-	    }
 	
-	public void clickSearch() {
+	
+	  public void clickSearch() {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
       wait.until(ExpectedConditions.elementToBeClickable(searchButton));
        searchButton.click();
      
     }
+	
+	
 	
 }
