@@ -7,7 +7,7 @@ import io.cucumber.junit.CucumberOptions;
 @RunWith(Cucumber.class)
 @CucumberOptions(
     features = "C:\\Users\\VAIDCHAN\\OneDrive\\eclipse\\ixigo\\src\\test\\resource\\Feature\\Bus.feature",
-    glue = "com.stepDefination"
+    glue = "com.stepDefination",tags="@log1"
 //    plugin = {"pretty","html:target/CucumberReport.html"},
 //    monochrome = true
 )
