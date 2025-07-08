@@ -17,11 +17,11 @@ public abstract class BasePage {
         this.js    = (JavascriptExecutor) driver;
     }
  
-    protected WebElement clickable(By locator) {
+    public WebElement clickable(By locator) {
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
  
-    protected void jsClick(WebElement el) { js.executeScript("arguments[0].click();", el); }
-    protected void pause(long ms) { try { Thread.sleep(ms); } catch (InterruptedException ignored) {} }
+    public void jsClick(WebElement el) { js.executeScript("arguments[0].click();", el); }
+   
 }
  

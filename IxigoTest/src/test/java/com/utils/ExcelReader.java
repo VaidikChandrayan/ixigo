@@ -3,46 +3,27 @@ package com.utils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  
-import java.io.InputStream;
+import java.io.FileInputStream;
  
 public class ExcelReader {
  
-    private static Workbook workbook;
- 
-    static {
+    public static String readExcelCell(String excelPath, String sheetName, int rowNum, int colNum) {
+        String cellValue = "";
         try {
-            // ✅ Use relative path inside resources folder
-            InputStream inputStream = ExcelReader.class.getClassLoader()
-                .getResourceAsStream("src\\test\\resources\\ExcelData\\Data.xlsx");
- 
-            if (inputStream == null) {
-                throw new RuntimeException("Excel file not found in resources/ExcelData folder");
-            }
- 
-            workbook = new XSSFWorkbook(inputStream);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Failed to load Excel workbook: " + e.getMessage());
-        }
-    }
- 
-    public static String getCellData(String sheetName, int rowNum, int colNum) {
-        try {
+            FileInputStream fis = new FileInputStream(excelPath);
+            Workbook workbook = new XSSFWorkbook(fis);
             Sheet sheet = workbook.getSheet(sheetName);
-            if (sheet == null) throw new RuntimeException("Sheet not found: " + sheetName);
- 
             Row row = sheet.getRow(rowNum);
-            if (row == null) return "";
- 
             Cell cell = row.getCell(colNum);
-            if (cell == null) return "";
  
             DataFormatter formatter = new DataFormatter();
-            return formatter.formatCellValue(cell);
+            cellValue = formatter.formatCellValue(cell); // handles any type
  
+            workbook.close();
+            fis.close();
         } catch (Exception e) {
             e.printStackTrace();
-            return "";
         }
+        return cellValue;
     }
 }

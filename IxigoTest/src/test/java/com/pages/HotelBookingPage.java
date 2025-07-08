@@ -1,5 +1,6 @@
 package com.pages;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -8,11 +9,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.utils.ConfigReader;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
+import java.io.File;
 import java.time.Duration;
 import java.util.List;
 import java.util.Random;
+import com.utils.ScreenshotUtil;
 
-public class HotelBookingPage {
+public class HotelBookingPage extends BasePage {
 
 	// Web-driver setup
 
@@ -22,35 +25,7 @@ public class HotelBookingPage {
 
 	// Page-Factory locators 
 	
-	// ─── Scenario-2 locators ────────────────────────────
-	@FindBy(xpath = "/html/body/main/div[4]/div[2]/div/div[1]/div[1]/div[1]/input")
-	private WebElement destinationInput;
 
-	// first suggestion after typing (Ixigo shows a result list)
-	@FindBy(xpath = "/html/body/main/div[4]/div[2]/div/div[1]/div[2]/div/div/div[1]/div")
-	private WebElement goaSuggestion;
-
-	// calendar frame opener (any rd-date container)
-	@FindBy(xpath = "//div[contains(@class,'rd-date')]")
-	private WebElement dateBox;
-
-	// guests section opener
-//    @FindBy(xpath = "//div[contains(text(),'Guests')]")
-//    private WebElement guestsSection;
-// 
-//    // plus button for Adults (+)
-//    @FindBy(xpath = "(//div[contains(text(),'Adults')]/following-sibling::div//button[contains(text(),'+')])[1]")
-//    private WebElement plusAdultBtn;
-// 
-//    // “Apply” / “Done” button inside guest panel
-//    @FindBy(xpath = "//button[text()='Apply' or text()='Done']")
-//    private WebElement applyGuestsBtn;
-
-	// Search Hotels button
-	@FindBy(xpath = "/html/body/main/div[4]/div[2]/div/button")
-	private WebElement searchBtn;
-
-	// -------------Scenario 3 -------
 	@FindBy(xpath = "/html/body/div[3]/div[2]/div[2]/div[2]/div/div/div[1]/div/div")
 	WebElement sortDropdown;
 
@@ -70,11 +45,11 @@ public class HotelBookingPage {
 	@FindBy(xpath = "/html/body/div[3]/div[2]/div[2]/div[1]/div[2]/div[3]/div[2]/div[2]/span/input")
 	WebElement freeBreakfastOption;
 
+	
 	// Constructor
 	
-	
-
 	public HotelBookingPage(WebDriver driver) {
+		super(driver);
 		this.driver = driver;
 		this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 		this.js = (JavascriptExecutor) driver;
@@ -82,9 +57,8 @@ public class HotelBookingPage {
 	}
 
 	
-	// -------------------------------Scenario 3 -------------------------------------------------------------
-	// Step 8: Sort hotel results by selecting a random option from Popularity
-	// dropdown
+	// =====================================Scenario 3=========================================================
+	
 	
 	public void loadHomePage() {
 		try {
@@ -98,49 +72,82 @@ public class HotelBookingPage {
 	
 	public void openSortDropdown() {
 		try {
-			wait.until(ExpectedConditions.elementToBeClickable(sortDropdown)).click();
+			//wait.until(ExpectedConditions.elementToBeClickable(sortDropdown)).click();
+			By dropdownButton =  By.cssSelector("body > div.min-w-1336 > div:nth-child(2) > div.container.flex.items-start.gap-x-20 > div.flex-1 > div > div > div.relative.flex.items-center.gap-x-20 > div > div");
+			 
+			WebElement dropdownBtn = wait.until(ExpectedConditions.elementToBeClickable(dropdownButton));
+			dropdownBtn.click();
 			System.out.println("Opened sort dropdown.");
 		} catch (Exception e) {
 			System.out.println("Failed to open sort dropdown: " + e.getMessage());
 		}
 	}
 
-	public void selectRandomSortOption() {
+	/*public void selectRandomSortOption() {
 		try {
 
-			wait.until(ExpectedConditions.elementToBeClickable(sortOptions)).click();
+			sortOptions.click();
 			System.out.println("Selected sort option: ");
 		} catch (Exception e) {
 			System.out.println("Failed to select sort option: " + e.getMessage());
 		}
+	}*/
+	public void selectRandomSortOption() {
+	    try {
+	        Thread.sleep(2000); // Wait for rating options to be visible
+	 
+	        // Use CSS selector to fetch all rating filter elements
+	        List<WebElement> sortOptions = driver.findElements(By.cssSelector("body > div.min-w-1336 > div:nth-child(2) > div.container.flex.items-start.gap-x-20 > div.flex-1 > div > div > div.relative.flex.items-center.gap-x-20 > div > div.absolute.right-0.z-50.cursor-pointer > div")); // Replace with actual class
+	 
+	        if (sortOptions.size() == 0) {
+	            throw new RuntimeException(" No dropdown options found using CSS Selector.");
+	        }
+	 
+	        Random rand = new Random();
+	        int index = rand.nextInt(sortOptions.size());
+	 
+	        WebElement selectedOption = sortOptions.get(index);
+	selectedOption.click();
+	 
+	        System.out.println("Selected Random dropdown option : " + selectedOption.getText());
+	 
+	        Thread.sleep(2000);
+	    } catch (Exception e) {
+	        System.out.println("Failed to select dropdown option: " + e.getMessage());
+	    }
 	}
+	 
 
-	public void validateSortedResults() {
-		try {
-			Thread.sleep(2000); // Allow time for refresh
-			System.out.println(" Hotel results refreshed.");
-			// Optional: Add validation logic like checking result titles or order
-		} catch (Exception e) {
-			System.out.println(" Failed to validate sorted results: " + e.getMessage());
-		}
-	}
-
-	// ------------------------------Scenario 4 // --------------------------------------
 
 	// open the “Search within area” input
 	public void openAreaSearchField() {
 		try {
-			wait.until(ExpectedConditions.elementToBeClickable(areaSearchInput)).click();
+			areaSearchInput.click();
 			System.out.println(" Opened area search field");
 		} catch (Exception e) {
 			System.out.println("Failed to open area field: " + e.getMessage());
 		}
 	}
+	
+	public void enterAreaName(String area) {
+	    try {
+	        // Click inside the input field
+	       
+			areaSearchInput.click();
+			areaSearchInput.sendKeys(area);
+			
+	 
+	        System.out.println("Entered area: " + area);
+	        Thread.sleep(1000); // wait for suggestions to appear
+	    } catch (Exception e) {
+	        System.out.println("Failed to enter area: " + e.getMessage());
+	    }
+	}
 
 	// click the first area suggestion
 	public void selectFirstAreaSuggestion() {
 		try {
-			wait.until(ExpectedConditions.elementToBeClickable(areaSuggestions)).click();
+			areaSuggestions.click();
 			System.out.println("Selected sort option: ");
 
 		} catch (Exception e) {
@@ -158,14 +165,19 @@ public class HotelBookingPage {
 			return false;
 		}
 	}
+	
+	
 
-	// -------------------------------------------Scenario 5 ----------------------------------
+	//=================================== Scenario  4 ==============================================
+	
+	
 	
 	// Scroll to Most Popular section
 	public void scrollToMostPopularFilter() {
 		try {
 			WebElement mostPopular = wait.until(ExpectedConditions
 					.visibilityOfElementLocated(By.xpath("/html/body/div[3]/div[2]/div[2]/div[1]/div[2]/div[3]/p")));
+			
 			js.executeScript("arguments[0].scrollIntoView(true);", mostPopular);
 			Thread.sleep(1000);
 			System.out.println("Scrolled to Most Popular filter section");
@@ -203,6 +215,7 @@ public class HotelBookingPage {
 			System.out.println("Failed to select Parking Available filter: " + e.getMessage());
 		}
 	}
+	
 
 	// Wait after filter applied (can improve with dynamic wait later)
 	public void waitForHotelResultsToUpdate() {
@@ -214,7 +227,10 @@ public class HotelBookingPage {
 		}
 	}
 
-	// --------------------------------Scenario 6 --------------------------------------------
+	
+	
+	// ==================================Scenario 5 ======================================
+	
 	
 
 	// Scroll to User Rating section
@@ -230,18 +246,32 @@ public class HotelBookingPage {
 		}
 	}
 
-	// Click "Good: 6+" User Rating
-	public void selectGoodUserRating() {
-		try {
-			By goodRating = By.xpath("/html/body/div[3]/div[2]/div[2]/div[1]/div[2]/div[5]/div[4]");
-			WebElement ratingOption = wait.until(ExpectedConditions.elementToBeClickable(goodRating));
-			js.executeScript("arguments[0].click();", ratingOption);
-			Thread.sleep(3000);
-			System.out.println(" Selected User Rating: Good: 6+");
-		} catch (Exception e) {
-			System.out.println(" Failed to click Good rating: " + e.getMessage());
-		}
+	
+	public void selectRandomUserRating() {
+	    try {
+	        Thread.sleep(2000); // Wait for rating options to be visible
+	 
+	        // Use CSS selector to fetch all rating filter elements
+	        List<WebElement> ratingOptions = driver.findElements(By.cssSelector("body > div.min-w-1336 > div:nth-child(2) > div.container.flex.items-start.gap-x-20 > div.sticky.z-\\[99\\].flex-shrink-0.rounded-10 > div.flex.flex-col.gap-y-30.rounded-10.bg-primary.pb-20 > div:nth-child(5)")); // Replace with actual class
+	 
+	        if (ratingOptions.size() == 0) {
+	            throw new RuntimeException(" No rating options found using CSS Selector.");
+	        }
+	 
+	        Random rand = new Random();
+	        int index = rand.nextInt(ratingOptions.size());
+	 
+	        WebElement selectedOption = ratingOptions.get(index);
+	selectedOption.click();
+	 
+	        System.out.println("Selected Random Rating using CSS: " + selectedOption.getText());
+	 
+	        Thread.sleep(2000);
+	    } catch (Exception e) {
+	        System.out.println("Failed to select rating using CSS: " + e.getMessage());
+	    }
 	}
+	 
 
 	// Scroll to Star Rating section
 	public void scrollToStarRatingFilter() {
@@ -250,36 +280,53 @@ public class HotelBookingPage {
 					.visibilityOfElementLocated(By.xpath("/html/body/div[3]/div[2]/div[2]/div[1]/div[2]/div[7]/p")));
 			js.executeScript("arguments[0].scrollIntoView(true);", starRating);
 			Thread.sleep(1000);
-			System.out.println("✅ Scrolled to Star Rating section");
+			System.out.println("Scrolled to Star Rating section");
 		} catch (Exception e) {
-			System.out.println("❌ Scroll to Star Rating failed: " + e.getMessage());
+			System.out.println("Scroll to Star Rating failed: " + e.getMessage());
 		}
+	}
+	public void selectStarRating(){
+	    try {
+	        Thread.sleep(2000); // Wait for rating options to be visible
+	 
+	        // Use CSS selector to fetch all rating filter elements
+	        List<WebElement> ratingOptions = driver.findElements(By.cssSelector("body > div.min-w-1336 > div:nth-child(2) > div.container.flex.items-start.gap-x-20 > div.sticky.z-\\[99\\].flex-shrink-0.rounded-10 > div.flex.flex-col.gap-y-30.rounded-10.bg-primary.pb-20 > div:nth-child(7)")); // Replace with actual class
+	 
+	        if (ratingOptions.size() == 0) {
+	            throw new RuntimeException(" No rating options found using CSS Selector.");
+	        }
+	 
+	        Random rand = new Random();
+	        int index = rand.nextInt(ratingOptions.size());
+	 
+	        WebElement selectedOption = ratingOptions.get(index);
+	selectedOption.click();
+	 
+	        System.out.println("Selected Random Rating using CSS: " + selectedOption.getText());
+	 
+	        Thread.sleep(2000);
+	    } catch (Exception e) {
+	        System.out.println("Failed to select rating using CSS: " + e.getMessage());
+	    }
 	}
 
-	// Click 4-star rating
-	public void selectFourStarRating() {
-		try {
-			By fourStar = By.xpath("/html/body/div[3]/div[2]/div[2]/div[1]/div[2]/div[7]/div/div[2]/span/span");
-			WebElement fourStarOption = wait.until(ExpectedConditions.elementToBeClickable(fourStar));
-			js.executeScript("arguments[0].click();", fourStarOption);
-			Thread.sleep(3000);
-			System.out.println("✅ Selected 4 Star Rating");
-		} catch (Exception e) {
-			System.out.println("❌ Failed to click 4 Star: " + e.getMessage());
-		}
-	}
 
 	// Wait for hotel list to refresh
 	public void waitForHotelResultsToUpdates() {
 		try {
 			Thread.sleep(3000);
-			System.out.println("✅ Waited for hotel results to update");
+			System.out.println("Waited for hotel results to update");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
 
-	// ------------------------Scenario 7  -------------------------------------------
+	
+	
+	
+	//=======================================Scenario 6 ==========================================
+	
+	
 	
 	// Click the "Book Now" button on the first hotel result
 	public void clickFirstBookNowButton() {
@@ -295,33 +342,59 @@ public class HotelBookingPage {
 	}
 
 	// Validate redirection to reservation page
-	/*
-	 public boolean isOnReservationPage() { try { 
+	
+	 public boolean isOnReservationPage() { 
+		 try { 
 	 // Adjust this check as per actual reservation page element/text/url return
-	 wait.until(ExpectedConditions.urlContains("/hotels")); } catch (Exception e)
-	 { System.out.println("X Failed to verify reservation page: " +e.getMessage()); return false; } }
-	 */
+	 wait.until(ExpectedConditions.urlContains("/hotels")); 
+	 } catch (Exception e)
+	 { 
+		 System.out.println("Failed to verify reservation page: " +e.getMessage()); 
+		 return false; 
+		 }
+		 return false;
+	 
+	    
+	 }
+	 
+	
+	
 
-	// ----------------------------------------Negative Scenario-----------------------------------------
+	// ==================================== Scenario 7 (Negative Scenario)===========================================
 
 	
-	 /*public void selectTodayAsCheckInDate() { try { WebElement checkIn =
-	 wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/main/div[4]/div[2]/div/div[2]/div[3]/div/div[1]/div/div[2]/div[1]/div/div/div[2]/button[8]"))); checkIn.click();
+	 public void selectTodayAsCheckInDate() {
+		 try { WebElement checkIn =
+	 wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/main/div[4]/div[2]/div/div[2]/div[3]/div/div[1]/div/div[2]/div[1]/div/div/div[2]/button[10]"))); checkIn.click();
 	  
 	 } catch (Exception e) { System.out.println("X Failed to select today: " +e.getMessage()); } }
 	 
-	  public void selectSameDateAsCheckOut() { try {
+	  public void selectSameDateAsCheckOut() { 
+		  try {
 	  WebElement checkOut =
-	 wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/main/div[4]/div[2]/div/div[2]/div[3]/div/div[1]/div/div[2]/div[1]/div/div/div[2]/button[8]" )));
+	 wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/main/div[4]/div[2]/div/div[2]/div[3]/div/div[1]/div/div[2]/div[1]/div/div/div[2]/button[10]" )));
 	 
-	 checkOut.click(); } catch (Exception e) {
+	 checkOut.click(); 
+	 
+		  } catch (Exception e) {
 	 System.out.println("X Failed to select same check-out date: " +
 	 e.getMessage()); } }
 	
-	 public void isCheckOutDateAccepted() { // Implement logic to check if the
-	 //check-out date field updated // Example: return false if same date is
-	 System.out.println("Check-Out date blank");
-	 }*/
+	 
+	  
+	  public void takesscreen() {
+		    try {
+		        TakesScreenshot ts = (TakesScreenshot) driver;
+		        File src = ts.getScreenshotAs(OutputType.FILE);
+		 
+		        String dest = "C:\\Windows.old\\Windows\\System32\\config\\systemprofile\\eclipse-workspace\\My_Project\\IxigoTest\\src\\test\\resources\\Screenshot\\" + System.currentTimeMillis() + ".png";
+		        FileUtils.copyFile(src, new File(dest));
+		 
+		        System.out.println("Screenshot saved at: " + dest);
+		    } catch (Exception e) {
+		        System.out.println("Failed to take screenshot: " + e.getMessage());
+		    }
+		}
 	 
 
 }

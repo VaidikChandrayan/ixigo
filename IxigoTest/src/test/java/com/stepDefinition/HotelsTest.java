@@ -23,10 +23,12 @@ public class HotelsTest {
 		searchPage = new SearchPage(driver);
 		bookingPage = new HotelBookingPage(driver);
 	}
+	
+	
+	//----------------------------------Scenario 1 -------------------------------------------------------
 
-	/*@Given("user launches the ixigo hotels website")
+	@Given("user launches the ixigo hotels website")
 	public void launch_ixigo() {
-		//hotelsPage.loadHomePage();
 		searchPage.loadHomePage();
 	}
 
@@ -43,38 +45,33 @@ public class HotelsTest {
 	@Then("user should be on the Hotels page")
 	public void verify_hotels_page() {
 		// Assert.assertTrue("❌ Not on Hotels page!", hotelsPage.isHotelsTabSelected());
-		System.out.println("✅ User landed on Hotels page.");
-	}*/
+		System.out.println("User landed on Hotels page.");
+	}
 
 	
 	
 	
-	// ---------------------------Scenario 2-----------------------------
+	// ---------------------------Scenario 2----------------------------------------------------------
 	
-	@Given("user is on the Hotels page")
+	/*@Given("user is on the Hotels page")
 	public void user_is_on_hotels_page() {
 		searchPage.loadHomePage();
 		searchPage.handleInitialPopUp();
 		searchPage.clickHotelsTab();
 	}
 
-	@When("user enters the destination")
-	public void user_enters_the_destination() {
-		searchPage.enterDestination("Goa");
+	
+	@When("user enters the destination from Excel using row {int} and column {int}")
+	public void user_enters_the_destination_from_excel(int row, int col) {
+	    try {
+	        String path = "C:\\Windows.old\\Windows\\System32\\config\\systemprofile\\eclipse-workspace\\My_Project\\IxigoTest\\src\\test\\resources\\ExcelData\\Data.xlsx"; // Path to your file
+	        String destination = ExcelReader.readExcelCell(path, "Sheet1", row, col);
+	        searchPage.enterDestination(destination);
+	    } catch (Exception e) {
+	        System.out.println("❌ Could not read data: " + e.getMessage());
+	    }
 	}
 	
-	/*@When("user enters the destination from Excel")
-	public void user_enters_the_destination_from_excel(int row, int col) {
-		 try {
-		        String place = ExcelReader.getCellData("Sheet1", 1, 0);
-		        hotelsPage.enterDestination(place);
-		    } catch (Exception e) {
-		        System.out.println("❌ Failed to read destination from Excel: " + e.getMessage());
-		    }
-		}*/
-	
-	
-
 	@And("user selects the destination")
 	public void user_selects_the_destination() {
 		searchPage.selectDestinationSuggestion();
@@ -102,63 +99,60 @@ public class HotelsTest {
 	public void user_should_see_search_results() {
 		// Assert.assertTrue("Hotels results page not displayed",
 		// hotelsPage.isHotelsTabSelected());
-		System.out.println("✅ Hotel results displayed successfully");
-	}
-
-	// ------------------------------Scenario 3-------------------------------------
-
-	/*@Given("user is on the hotel search-results page")
-	public void user_is_on_the_hotel_search_results_page() {
-		bookingPage.loadHomePage(); // Optional if already loaded
-		
-
-	}
-
-	@When("user opens the Popularity sort dropdown")
-	public void user_opens_the_popularity_sort_dropdown() {
-		bookingPage.openSortDropdown();
-	}
-
-	@And("user selects a random sort option")
-	public void user_selects_a_random_sort_option() {
-		bookingPage.selectRandomSortOption();
-	}
-
-	@Then("hotel results should refresh according to the selected option")
-	public void hotel_results_should_refresh() {
-		bookingPage.validateSortedResults();
-	} */
-
-	// ------------------------------Scenario 4--------------------------------
+		System.out.println("Hotel results displayed successfully");
+	}*/
 	
-
-	/*@Given("user is on the hotel search results page")
-	public void user_on_results_page() {
-		bookingPage.loadHomePage();
-		
-		
-	}
-
-	@When("user clicks on the {string} field")
-	public void user_clicks_area_field(String ignore) {
-		bookingPage.openAreaSearchField();
-	}
-
-	@When("user selects the first area suggestion")
-	public void user_selects_the_first_area_suggestion() {
-		bookingPage.selectFirstAreaSuggestion();
-	}
-
-	@Then("hotel results should update based on the selected area")
-	public void verify_area_filter_applied() {
-		Assert.assertTrue("Area filter not applied!", bookingPage.isAreaFilterApplied());
-		System.out.println("✅ Results refreshed for selected area.");
-	}
-
-	// --------------------------------------Scenario 5-----------------------------------
+	
+	
+	//--------------------------------------------Scenario 3 ----------------------------------------
+	
+	
+	
+	@Given("user is on the hotel search results page")
+    public void user_is_on_search_results_page() {
+        bookingPage.loadHomePage();
+    }
+ 
+    @When("user opens the Popularity sort dropdown")
+    public void user_opens_sort_dropdown() {
+        bookingPage.openSortDropdown();
+    }
+ 
+    @And("user selects a random sort option")
+    public void user_selects_random_sort_option() {
+        bookingPage.selectRandomSortOption();
+    }
+ 
+    
+    @And("user enters area name from Excel using row {int} and column {int}")
+    public void user_enters_area_name_from_excel(int row, int col) {
+        try {
+            String path = "C:\\Windows.old\\Windows\\System32\\config\\systemprofile\\eclipse-workspace\\My_Project\\IxigoTest\\src\\test\\resources\\ExcelData\\Data.xlsx";
+            String area = ExcelReader.readExcelCell(path, "Sheet1", row, col);
+            bookingPage.enterAreaName(area);  // Assumes method exists in your HotelBookingPage
+        } catch (Exception e) {
+            System.out.println("Could not read area from Excel: " + e.getMessage());
+        }
+    }
+ 
+    @And("user selects the first area suggestion")
+    public void user_selects_first_area_suggestion() {
+        bookingPage.selectFirstAreaSuggestion();
+    }
+ 
+    @Then("hotel results should update based on the selected sort and area")
+    public void validate_hotel_results_after_area_filter() {
+        boolean isUpdated = bookingPage.isAreaFilterApplied();
+        assert isUpdated : "Hotel results did not update as expected.";
+    }
 
 	
-	@Given("user has completed a hotel search and is viewing the results") public
+	
+
+	// --------------------------------------Scenario 4-----------------------------------------
+
+	
+	/*@Given("user has completed a hotel search and is viewing the results") public
 	 void user_has_completed_a_hotel_search_and_is_viewing_results() {
 		 bookingPage.loadHomePage();
 	 } 
@@ -192,8 +186,11 @@ public class HotelsTest {
 	public void hotel_results_should_update_with_both_filters_applied() {
 		bookingPage.waitForHotelResultsToUpdate();
 	}
+	
 
-	// -----------------------------------Scenario 6 --------------------------------
+	// -----------------------------------Scenario 5 --------------------------------
+	
+	
 	/*@Given("user has completed a hotel search and is viewing the results")
 	public void user_has_completed_search() {
 		
@@ -208,7 +205,7 @@ public class HotelsTest {
 
 	@And("user selects a random option from User Rating")
 	public void select_random_user_rating_filter() {
-		bookingPage.selectGoodUserRating();
+		bookingPage.selectRandomUserRating();
 	}
 
 	@And("hotel results should update based on selected User Rating filter")
@@ -223,15 +220,19 @@ public class HotelsTest {
 
 	@And("user selects a random option from Star Rating")
 	public void select_random_star_rating_filter() {
-		bookingPage.selectFourStarRating();
+		bookingPage.selectStarRating();
 	}
 
 	@Then("hotel results should update based on both applied filters")
 	public void wait_after_star_filter() {
 		bookingPage.waitForHotelResultsToUpdates();
-	}*/
+	}
+	
+	
 
-	// -------------------------Scenario 7 --------------------------------
+	// -------------------------Scenario 6 --------------------------------
+	
+	
 	
 	/*@Given("user has performed a hotel search and is viewing the search results")
 	public void user_performed_hotel_search_and_viewing_results() {
@@ -248,28 +249,36 @@ public class HotelsTest {
 
 	@Then("user should be redirected to the reservation page")
 	public void verify_redirection_to_reservation_page() {
-		System.out.println("User is on page");
-		// Assert.assertTrue("User not redirected to reservation page",
-		// hotelsPage.isOnReservationPage());
+		System.out.println("User is on reservation page");
+		//Assert.assertTrue("User not redirected to reservation page", bookingPage.isOnReservationPage());
 	}*/
+	
 
-	// ---------------------------Negative Scenario----------------
+	// ---------------------------Scenario 7 (Negative)------------------------------
 
-	/*
-	 @Given("user is on the Hotels page") 
+	
+	/*@Given("user is on the Hotels page") 
 	 public void user_is_on_hotels_page() {
-	 hotelsPage.loadHomePage(); hotelsPage.handleInitialPopUp();
-	 hotelsPage.clickHotelsTab(); hotelsPage.enterDestination("Goa");
-	 hotelsPage.selectDestinationSuggestion(); }
+		 searchPage.loadHomePage();
+		 searchPage.handleInitialPopUp();
+		 searchPage.clickHotelsTab(); 
+		 searchPage.enterDestination("Goa");
+		 searchPage.selectDestinationSuggestion(); }
 	 
 	 @When("user selects today as the check-in date") public void
-	 user_selects_today_as_checkin() { hotelsPage.selectTodayAsCheckInDate(); }
+	 user_selects_today_as_checkin() { 
+		 bookingPage.selectTodayAsCheckInDate(); 
+		 }
 	 
 	 @And("user selects the same date as the check-out date") public void
-	 user_selects_same_date_checkout() { hotelsPage.selectSameDateAsCheckOut(); }
+	 user_selects_same_date_checkout() { 
+		 bookingPage.selectSameDateAsCheckOut(); 
+		 }
 	 
 	 @Then("check-out date should not be accepted") public void
-	 verify_checkout_date_not_accepted() { hotelsPage.isCheckOutDateAccepted(); }
-	 */
+	 verify_checkout_date_not_accepted() { 
+		 bookingPage.takesscreen(); 
+		 }*/
+	 
 
 }

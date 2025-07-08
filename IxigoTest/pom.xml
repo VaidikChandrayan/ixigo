@@ -154,6 +154,23 @@
     <artifactId>poi-ooxml</artifactId>
     <version>5.2.3</version>
 </dependency>
+<!-- Extent Reports -->
+<dependency>
+    <groupId>com.aventstack</groupId>
+    <artifactId>extentreports</artifactId>
+    <version>5.1.1</version> <!-- use latest version if needed -->
+</dependency>
+<dependency>
+<groupId>org.freemarker</groupId>
+<artifactId>freemarker</artifactId>
+<version>2.3.30</version>
+</dependency>
+<!-- ExtentCucumberAdapter for Cucumber 7+ -->
+<dependency>
+    <groupId>tech.grasshopper</groupId>
+    <artifactId>extentreports-cucumber7-adapter</artifactId>
+    <version>1.8.0</version>
+</dependency>
     </dependencies>
  
     <build>
