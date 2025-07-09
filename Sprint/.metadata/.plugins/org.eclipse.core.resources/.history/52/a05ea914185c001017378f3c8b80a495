@@ -1,0 +1,39 @@
+package com.pages;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
+
+public class TrainSameSourceDestinationPage extends BasePage{
+
+	public TrainSameSourceDestinationPage(WebDriver driver) {
+		super(driver);
+		// TODO Auto-generated constructor stub
+	}
+	
+	public void invalidFromanTo()
+	{
+		 wait.until(ExpectedConditions.elementToBeClickable(FromValid)).click();
+		    FromValid.clear();
+		    FromValid.sendKeys(prop.getProperty("FromToInvalid"));
+
+		    wait.until(ExpectedConditions.visibilityOf(suggPune)).click();
+
+		    wait.until(ExpectedConditions.elementToBeClickable(ToValid)).click();
+		    ToValid.clear();
+		    ToValid.sendKeys(prop.getProperty("FromToInvalid"));
+
+		    wait.until(ExpectedConditions.visibilityOf(suggPune)).click();
+	}
+	public void selctSearch()
+	{
+		wait.until(ExpectedConditions.elementToBeClickable(searchBtn)).click();
+	}
+	public void assertSameData()
+	{
+		Assert.assertTrue(driver.getPageSource().contains("Source and destination cannot be the same"), "Expected error not found on page");
+
+	}
+	
+
+}

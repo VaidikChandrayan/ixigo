@@ -1,0 +1,12 @@
+package com.pages;
+
+import org.openqa.selenium.WebDriver;
+
+public class TrainValidDataPage extends BasePage{
+
+	public TrainValidDataPage(WebDriver driver) {
+		super(driver);
+		// TODO Auto-generated constructor stub
+	}
+
+}

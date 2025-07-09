@@ -1,0 +1,43 @@
+package com.setup;
+
+public class BaseSteps {
+	
+	public static WebDriver driver;
+	public static ChromeOptions coptions;
+	public static EdgeOptions eoptions;
+	
+ 
+	
+	public static WebDriver chromedriver()
+	{
+		WebDriverManager.chromedriver().setup();
+		coptions = new ChromeOptions();
+		coptions.addArguments("--start-maximized");
+		coptions.addArguments("Incognito");
+		coptions.addArguments("disable-notifications");
+		coptions.addArguments("disable-popup-blocking");
+		
+		driver  =new ChromeDriver(coptions);
+		driver.get("https://www.ixigo.com/trains");
+		return driver;
+		
+	}
+	
+	public static WebDriver edgedriver()
+	{
+		WebDriverManager.edgedriver().setup();
+		eoptions = new EdgeOptions();
+		eoptions.addArguments("--start-maximized");
+		eoptions.addArguments("Incognito");
+		eoptions.addArguments("disable-notifications");
+		eoptions.addArguments("disable-popup-blocking");
+		
+		driver  =new EdgeDriver(eoptions);
+		driver.get("https://www.ixigo.com/trains");
+		//driver.get("https://www.ixigo.com/search/result/train/PUNE/LTT/15072025//1/0/0/0/ALL");
+		return driver;
+		
+	}
+
+
+}

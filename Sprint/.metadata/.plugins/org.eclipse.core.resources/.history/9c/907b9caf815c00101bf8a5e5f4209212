@@ -1,0 +1,68 @@
+package com.pages;
+
+import java.util.List;
+import java.util.Map;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
+
+import com.parameters.ExcelReader;
+
+import io.cucumber.datatable.DataTable;
+
+public class TrainFilterPage extends BasePage{
+	
+	public TrainFilterPage(WebDriver driver) {
+		super(driver);
+		// TODO Auto-generated constructor stub
+	}
+
+	public void clickFilter(DataTable dataTable)
+	{	
+		List<Map<String , String>> data = dataTable.asMaps(String.class, String.class);
+		int row = Integer.parseInt(data.get(0).get("row"));
+		int quotaCol = Integer.parseInt(data.get(0).get("quotaCol"));
+		int classCol = Integer.parseInt(data.get(0).get("classCol"));
+		
+		String excelPath = prop.getProperty("excelPath");
+		ExcelReader reader = new ExcelReader(excelPath);
+		
+		String quotaValue = reader.getCellData(row, quotaCol).trim();
+		String classValue = reader.getCellData(row, classCol).trim();
+		
+		String quotaXpath = "//span[contains(text(),'"+ quotaValue +"')]";
+		
+		WebElement quotaElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(quotaXpath)));
+		quotaElement.click();
+		
+
+		String classXpath = "//span[contains(text(),'"+ classValue +"')]";
+		
+		WebElement classElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(classXpath)));
+		classElement.click();
+				
+	}
+	
+	public void clickFirstAvailability() 
+	 {
+		 	wait.until(ExpectedConditions.visibilityOf(loadTrain));
+
+		  
+		    WebElement showButton = wait.until(ExpectedConditions.elementToBeClickable(showAvlBtn));
+		    js.executeScript("arguments[0].scrollIntoView({block: 'center'});", showButton);
+		    actions.moveToElement(showButton).click().perform();
+
+		     
+	 }
+	 public void verifyAvailability()
+	 {
+		 wait.until(ExpectedConditions.visibilityOfAllElements(seatElement));
+		 Assert.assertTrue(seatElement.size() > 0,"Seat availability details should be displayed");
+		 
+	 }
+	
+
+}

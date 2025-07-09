@@ -1,0 +1,9 @@
+package com.runner;
+
+import io.cucumber.junit.Cucumber;
+import io.cucumber.testng.CucumberOptions;
+
+@CucumberOptions(features = "src\\test\\resource\\Features\\Train.feature")
+public class TestRunnerTestNG {
+
+}

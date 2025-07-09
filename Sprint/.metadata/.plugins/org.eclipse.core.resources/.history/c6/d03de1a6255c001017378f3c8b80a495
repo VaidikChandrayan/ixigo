@@ -1,0 +1,24 @@
+package com.pages;
+
+import org.openqa.selenium.WebDriver;
+
+public class TrainInvalidData extends BasePage{
+	
+	 public TrainInvalidData(WebDriver driver) {
+		super(driver);
+		// TODO Auto-generated constructor stub
+	}
+
+	public void enterStationDetails(String from, String to) {
+		
+			FromValid.click();
+	        //FromValid.clear();
+	        FromValid.sendKeys(from);
+	        
+	        ToValid.click();
+	        //ToValid.clear();
+	        ToValid.sendKeys(to);
+	    }
+
+
+}

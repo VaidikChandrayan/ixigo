@@ -1,0 +1,26 @@
+Feature: Ixigo Train Search Module
+
+  Background: 
+    Given User is on the train search page
+
+  @valid
+  Scenario: Validate correct train list appears for valid stations
+    When User enters data in From field and enters data in To field
+    And User selects date
+    And User clicks on Search for valid data
+    Then Train list should display according to From, To and on selected date
+
+    
+  @errorCheck
+  Scenario: Validate error when same station is entered in From and To field
+    When User enters data in From and To feilds
+    And User clicks on Search for invalid data
+    Then User should see error message
+    
+    
+  @seatCheck
+  Scenario: User checks seat availability after searching trains
+    When the user enters data in source and in destination with date
+    And clicks the search button
+    And clicks Show Availability for the first train
+    Then seat availability details should be displayed

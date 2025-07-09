@@ -1,0 +1,12 @@
+package com.pages;
+
+import org.openqa.selenium.WebDriver;
+
+public class TrainSameSourceDestinationPage extends BasePage{
+
+	public TrainSameSourceDestinationPage(WebDriver driver) {
+		super(driver);
+		// TODO Auto-generated constructor stub
+	}
+
+}

@@ -1,0 +1,50 @@
+Feature: Ixigo Train Search Module
+
+  Background: 
+    Given User is on the train search page
+
+  @valid
+  Scenario: Validate correct train list appears for valid stations
+    When User enters data in From field and enters data in To field
+    And User selects date
+    And User clicks on Search for valid data
+    Then Train list should display according to From, To and on selected date
+
+  @errorCheck
+  Scenario: Validate error when same station is entered in From and To field
+    When User enters data in From and To feilds
+    And User clicks on Search for invalid data
+    Then User should see error message
+
+  @seatCheck
+  Scenario: User checks seat availability after searching trains
+    When the user enters data in source and in destination with date
+    And clicks the search button
+    And clicks Show Availability for the first train
+    Then seat availability details should be displayed
+
+  @filter
+  Scenario: User applies quota and class filter
+    When User enters source and destination with date and clicks on search
+    And User clicks on quota and class filter
+      | row | quotaCol | classCol |
+      |   0 |        0 |        1 |
+    Then Only trains matching quota and class should be displayed
+
+  @swap
+  Scenario: Verify swapping source and destination in train search
+    When User enters valid source and destination and selects travel date
+    And User clicks on swap button
+    Then It should swap the source and destination
+    
+    
+  @invalidData
+  Scenario Outline: Search train with invalid station input
+    Given I launch Ixigo train site
+    When I enter station details from sheet <SheetIndex> row <RowIndex>
+    Then I verify the error message is displayed
+
+    Examples: 
+      | SheetIndex   | RowIndex   |
+      | ------------ | ---------- |
+      |            0 |          1 |

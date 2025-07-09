@@ -1,0 +1,117 @@
+package com.pages;
+
+import java.io.FileInputStream;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Locale;
+import java.util.Properties;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class BasePage {
+	
+	WebDriver driver;
+	Properties prop;
+	WebDriverWait wait;
+	JavascriptExecutor js;
+	Actions actions;
+	
+	
+	
+	@FindBy(xpath="//input[@placeholder='Enter Origin']")
+	WebElement FromValid;
+	
+	@FindBy(xpath="//p[contains(text(), 'Pune Jn (PUNE)')]")
+	WebElement suggPune;
+	
+	@FindBy(xpath="//input[@placeholder='Enter Destination']")
+	WebElement ToValid;
+	
+	@FindBy(xpath="//p[contains(text(), 'Mumbai - All stations(LTT)')]")
+	WebElement suggMum;
+	
+	@FindBy(css = "abbr[aria-label='July 15, 2025']")
+	WebElement dateClick;
+	
+	@FindBy(xpath ="//button[@data-testid='book-train-tickets']")
+	WebElement searchBtn;
+	
+	@FindBy(css = "div.train-status-item")
+	List<WebElement> seatElement;
+	
+	@FindBy(xpath="(//button[contains(text(), 'Show Availability')])[1]")
+	WebElement showAvlBtn;
+	
+	@FindBy(xpath = "//div[contains(@class, 'train-list')]")
+	WebElement loadTrain;
+	
+	
+	
+	public BasePage(WebDriver driver)
+	{
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+		this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		js = (JavascriptExecutor) driver;
+		this.actions = new Actions(driver);
+		loadProperties();
+	}
+	private void loadProperties() {
+        try {
+            prop = new Properties();
+            FileInputStream fis = new FileInputStream("C:\\Sprint-workspace\\ixigo\\src\\test\\resource\\PropertieFiles\\TrainSearch.properties");
+            prop.load(fis);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+	
+	
+	
+	public void fromToData()
+	{
+		wait.until(ExpectedConditions.elementToBeClickable(FromValid)).click();
+		
+		FromValid.sendKeys(prop.getProperty("FromValid"));
+
+	   wait.until(ExpectedConditions.elementToBeClickable(suggPune)).click();
+	    
+	   
+	    wait.until(ExpectedConditions.elementToBeClickable(ToValid)).click();
+	    ToValid.sendKeys(prop.getProperty("ToValid"));
+
+
+	   wait.until(ExpectedConditions.elementToBeClickable(suggMum)).click();
+		
+	}
+	
+	
+	public void selctDate()
+	{
+		LocalDate today = LocalDate.now();
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E, dd MMM", Locale.ENGLISH);
+	    String todayStr = today.format(formatter); // e.g., "Thu, 03 Jul"
+
+	    String xpath = "//span[contains(text(),'" + todayStr + "')]";
+	    WebElement dataField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+	    dataField.click();
+
+	    wait.until(ExpectedConditions.elementToBeClickable(dateClick)).click();
+
+	}
+	public void clickSearch()
+	{
+		wait.until(ExpectedConditions.elementToBeClickable(searchBtn)).click();
+
+	}
+}

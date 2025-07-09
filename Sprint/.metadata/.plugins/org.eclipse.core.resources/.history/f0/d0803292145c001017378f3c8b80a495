@@ -1,0 +1,53 @@
+package com.stepDefinition;
+
+import org.openqa.selenium.WebDriver;
+
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+public class TrainTest {
+	
+	WebDriver driver;
+	
+//-------------------------------------------Background----------------------------------------------------	
+	
+	@Given("User is on the train search page")
+	public void user_is_on_the_train_search_page() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+	
+//---------------------------------------------------------Scenario 1---------------------------------------
+	
+		/* created by:
+		 * Reviewed By:
+		 * Motive:
+		 *
+		 * *
+		 */
+	@When("User enters data in From field and enters data in To field")
+	public void user_enters_data_in_from_field_and_enters_data_in_to_field() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+	@When("User selects date")
+	public void user_selects_date() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+	@When("User clicks on Search for valid data")
+	public void user_clicks_on_search_for_valid_data() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+	@Then("Train list should display according to From, To and on selected date")
+	public void train_list_should_display_according_to_from_to_and_on_selected_date() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
+
+
+
+}

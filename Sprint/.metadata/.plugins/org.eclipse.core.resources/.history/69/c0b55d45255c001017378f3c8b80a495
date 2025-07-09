@@ -1,0 +1,9 @@
+FromValid = Pune
+ToValid = Mumbai
+
+FromToInvalid = Pune
+
+excelPath = C:\\Sprint-workspace\\ixigo\\src\\test\\resource\\Exceldata\\Data.xlsx
+
+swapSource = Mumbai - All stations(LTT)
+swapDest = Pune Jn (PUNE)
