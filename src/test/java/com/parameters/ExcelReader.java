@@ -1,19 +1,27 @@
 package com.parameters;
 
+<<<<<<< HEAD
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
+=======
+import java.io.FileInputStream;
+>>>>>>> ed83b207d06e2c8156bab4542d29e1ddfb2416ab
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+<<<<<<< HEAD
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+=======
+>>>>>>> ed83b207d06e2c8156bab4542d29e1ddfb2416ab
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  
 public class ExcelReader {
 	
+<<<<<<< HEAD
 //	 public static List<List<String>> getData(String filePath, String sheetName) {
 //	        List<List<String>> data = new ArrayList<>();
 //	        try {
@@ -72,3 +80,34 @@ public static String getCity(String sheetno,int rowno,int colno) {
 } 
  
 
+=======
+	String filePath;
+	
+	public ExcelReader(String filePath)
+	{
+		this.filePath = filePath;
+	}
+	
+	public String getCellData(int rowNum, int colNum) {
+	    String cellData = "";
+	    try (FileInputStream fis = new FileInputStream(filePath);
+	         Workbook workbook = new XSSFWorkbook(fis)) {
+ 
+	        Sheet sheet = workbook.getSheetAt(0);
+	        Row row = sheet.getRow(rowNum);
+	        if (row != null) {
+	            Cell cell = row.getCell(colNum);
+	            if (cell != null) {
+	                cellData = cell.toString();
+	            }
+	        }
+ 
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return cellData;
+	}
+ 
+ 
+}
+>>>>>>> ed83b207d06e2c8156bab4542d29e1ddfb2416ab

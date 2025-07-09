@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.runner;                                                                                           
 import io.cucumber.testng.AbstractTestNGCucumberTests;                                                        
 import io.cucumber.testng.CucumberOptions;                                                                    
@@ -19,3 +20,19 @@ import io.cucumber.testng.CucumberOptions;
     )
     public class TestRunner extends AbstractTestNGCucumberTests {                                       
     }  
+=======
+package com.runner;
+
+import org.junit.runner.RunWith;
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+ 
+@RunWith(Cucumber.class)
+@CucumberOptions(
+    features = "C:\\Users\\VAIDCHAN\\OneDrive\\eclipse\\ixigo\\src\\test\\resource\\Feature\\Bus.feature",
+    glue = "com.stepDefination",tags="@log1"
+//    plugin = {"pretty","html:target/CucumberReport.html"},
+//    monochrome = true
+)
+public class TestRunner {}
+>>>>>>> ed83b207d06e2c8156bab4542d29e1ddfb2416ab
