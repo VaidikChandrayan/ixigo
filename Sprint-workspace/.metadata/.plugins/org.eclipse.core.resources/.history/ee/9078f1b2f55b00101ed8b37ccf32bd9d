@@ -1,0 +1,98 @@
+package com.pages;
+
+import java.time.Duration;
+import java.util.List;
+import java.util.concurrent.TimeoutException;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class FlightNegativeDataPage extends BasePage {
+	
+	
+	
+
+	public FlightNegativeDataPage(WebDriver driver) {
+		super(driver);
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+		
+	}
+	
+	public void sameFrom()
+	{
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        wait.until(ExpectedConditions.elementToBeClickable(FromOneWay)).click();
+//        FromOneWay.sendKeys(prop.getProperty("FromCity"));
+//	    WebElement sugg = wait.until(ExpectedConditions.elementToBeClickable(puneOption));
+////        wait.until(ExpectedConditions.visibilityOf(puneOption)).click();
+////        WebElement sugg = wait.until(ExpectedConditions.elementToBeClickable(puneOption));
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", sugg);
+		
+		
+		    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+		    // Step 1: Activate the 'From' field
+		    wait.until(ExpectedConditions.elementToBeClickable(FromOneWay)).click();
+
+		    // Step 2: Locate and type into the input
+		    WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(
+		        By.xpath("//span[contains(text(),'From')]/following::input[1]")));
+		    input.clear();
+		    input.sendKeys(prop.getProperty("FromCity"));  // e.g., "Pune"
+
+		    // Step 3: Wait for the suggestion to appear
+		    WebElement puneOption = wait.until(ExpectedConditions.presenceOfElementLocated(
+		        By.xpath("//span[contains(@class,'truncate') and contains(normalize-space(translate(., '\"', '')), 'Pune')]")));
+
+		    // Step 4: Select the option
+		    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", puneOption);
+
+		    // Step 5: Give the frontend time to absorb the input
+		    try {
+		        Thread.sleep(500);
+		    } catch (InterruptedException e) {
+		        Thread.currentThread().interrupt();
+		    }
+
+		    // Step 6: Blur input to avoid dropdown reopening
+		    ((JavascriptExecutor) driver).executeScript("arguments[0].blur();", input);
+		}
+
+
+         
+		
+	
+	public void sameTo() throws TimeoutException {
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+	    // Step 1: Click the 'To' field to focus
+	    wait.until(ExpectedConditions.elementToBeClickable(ToOneWay)).click();
+
+	    // Step 2: Locate the input for 'To' and type the same value as 'FromCity'
+	    WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(
+	        By.xpath("//span[contains(text(),'To')]/following::input[1]")));
+	    input.sendKeys(prop.getProperty("ToCitySame"));  // e.g., "Pune"
+
+	    // Step 3: Wait for the dropdown suggestion for "Pune" to appear and become clickable
+	    WebElement puneOption = wait.until(ExpectedConditions.elementToBeClickable(
+	        By.xpath("//*[contains(text(),'Pune') and contains(@class,'truncate')]")));
+
+	    // Step 4: Click the "Pune" suggestion using JavaScript
+	    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", puneOption);
+
+	    WebElement errorMsg = wait.until(ExpectedConditions.visibilityOfElementLocated(
+		    By.xpath("//*[contains(text(),'cannot') or contains(text(),'same city') or contains(@class,'error')]")));
+		System.out.println("Validation message shown: " + errorMsg.getText());
+
+	    // Step 6: Blur the input only after validation check to prevent dropdown reopening
+	    ((JavascriptExecutor) driver).executeScript("arguments[0].blur();", input);
+	}
+}

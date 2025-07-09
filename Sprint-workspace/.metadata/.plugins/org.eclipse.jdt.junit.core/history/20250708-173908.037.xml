@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="TestRunnerjunit" project="ixigo" tests="1" started="1" failures="0" errors="1" ignored="0">
+  <testsuite name="com.runner.TestRunnerjunit" time="5.681">
+    <testsuite name="Ixigo Flight Search Module" time="5.681">
+      <testcase name="Validate error when same city is entered in From and To field" classname="Ixigo Flight Search Module" time="5.681">
+        <error>java.lang.Error: Unresolved compilation problem: 
+	Unhandled exception type TimeoutException
+&#13;
+	at com.stepDefinition.FlightTest.user_enters_same_city_in_to_field(FlightTest.java:116)&#13;
+	at ✽.User enters same city in To Field(file:///C:/Sprint-workspace/ixigo/src/test/resource/Features/Flight.feature:31)&#13;
+&#13;
+</error>
+      </testcase>
+    </testsuite>
+  </testsuite>
+</testrun>

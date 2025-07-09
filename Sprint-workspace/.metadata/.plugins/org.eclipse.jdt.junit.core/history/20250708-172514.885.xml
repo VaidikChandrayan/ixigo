@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="TestRunnerjunit" project="ixigo" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testsuite name="com.runner.TestRunnerjunit" time="11.172">
+    <testsuite name="Ixigo Flight Search Module" time="11.172">
+      <testcase name="Validate error when same city is entered in From and To field" classname="Ixigo Flight Search Module" time="11.172"/>
+    </testsuite>
+  </testsuite>
+</testrun>

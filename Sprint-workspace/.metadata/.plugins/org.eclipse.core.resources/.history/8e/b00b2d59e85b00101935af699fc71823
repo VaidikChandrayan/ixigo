@@ -1,0 +1,73 @@
+package com.pages;
+
+import java.time.Duration;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class FlightNegativeDataPage extends BasePage {
+	
+	
+	
+
+	public FlightNegativeDataPage(WebDriver driver) {
+		super(driver);
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+		
+	}
+	
+	public void sameFrom()
+	{
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        wait.until(ExpectedConditions.elementToBeClickable(FromOneWay)).click();
+//        FromOneWay.sendKeys(prop.getProperty("FromCity"));
+//	    WebElement sugg = wait.until(ExpectedConditions.elementToBeClickable(puneOption));
+////        wait.until(ExpectedConditions.visibilityOf(puneOption)).click();
+////        WebElement sugg = wait.until(ExpectedConditions.elementToBeClickable(puneOption));
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", sugg);
+		
+		 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+		    // Activate the 'From' input field
+		    wait.until(ExpectedConditions.elementToBeClickable(FromOneWay)).click();
+
+		    // Locate the input field and type
+		    WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(
+		        By.xpath("//span[contains(text(),'From')]/following::input[1]")));
+		    input.clear();
+		    input.sendKeys(prop.getProperty("FromCity"));  // assuming this is "Pune"
+
+		    // Wait for suggestion span containing "Pune" (without quotes and normalized)
+		    WebElement puneOption = wait.until(ExpectedConditions.presenceOfElementLocated(
+		        By.xpath("//span[contains(@class,'truncate') and contains(normalize-space(translate(., '\"', '')), 'Pune')]")));
+
+		    // Scroll and click the option using JS
+		    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", puneOption);
+		    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", puneOption);
+
+
+		}
+
+
+         
+		
+	
+	
+	public void sameTo()
+	{
+
+
+	}
+	
+	
+
+}

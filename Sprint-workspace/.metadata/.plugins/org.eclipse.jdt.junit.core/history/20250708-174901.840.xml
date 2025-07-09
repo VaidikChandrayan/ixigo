@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="TestRunnerjunit" project="ixigo" tests="1" started="1" failures="0" errors="1" ignored="0">
+  <testsuite name="com.runner.TestRunnerjunit" time="36.199">
+    <testsuite name="Ixigo Flight Search Module" time="36.199">
+      <testcase name="Validate error when same city is entered in From and To field" classname="Ixigo Flight Search Module" time="36.199">
+        <error>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //*[contains(text(),'cannot') or contains(text(),'same city') or contains(@class,'error') or contains(@class,'toast')] (tried for 20 second(s) with 500 milliseconds interval)
+Build info: version: '4.33.0', revision: '2c6aaad03a'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.15'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 138.0.7204.97, chrome: {chromedriverVersion: 138.0.7204.92 (f079b9bc781e..., userDataDir: C:\Users\GAKULKAR\AppData\L...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:61012}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:61012/devtoo..., se:cdpVersion: 138.0.7204.97, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 51246fe10cf86c476b5f51cc9b67bf05&#13;
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)&#13;
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)&#13;
+	at com.pages.FlightNegativeDataPage.sameTo(FlightNegativeDataPage.java:87)&#13;
+	at com.stepDefinition.FlightTest.user_enters_same_city_in_to_field(FlightTest.java:116)&#13;
+	at ✽.User enters same city in To Field(file:///C:/Sprint-workspace/ixigo/src/test/resource/Features/Flight.feature:31)&#13;
+&#13;
+</error>
+      </testcase>
+    </testsuite>
+  </testsuite>
+</testrun>

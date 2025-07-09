@@ -1,0 +1,79 @@
+package com.pages;
+
+import java.time.Duration;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class FlightNegativeDataPage extends BasePage {
+	
+	
+	
+
+	public FlightNegativeDataPage(WebDriver driver) {
+		super(driver);
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+		
+	}
+	
+	public void sameFrom()
+	{
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        wait.until(ExpectedConditions.elementToBeClickable(FromOneWay)).click();
+//        FromOneWay.sendKeys(prop.getProperty("FromCity"));
+//	    WebElement sugg = wait.until(ExpectedConditions.elementToBeClickable(puneOption));
+////        wait.until(ExpectedConditions.visibilityOf(puneOption)).click();
+////        WebElement sugg = wait.until(ExpectedConditions.elementToBeClickable(puneOption));
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", sugg);
+		
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+	    // Click the From field
+	    wait.until(ExpectedConditions.elementToBeClickable(FromOneWay)).click();
+
+	    // Target and clear the input field
+	    WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(
+	        By.xpath("//span[contains(text(),'From')]/following::input[1]")));
+	    input.clear();
+
+	    // Type the city name
+	    String fromCity = prop.getProperty("FromCity");
+	    input.sendKeys(fromCity);
+
+	    // Pause briefly to allow dropdown suggestions to populate
+	    try {
+	        Thread.sleep(800); // tweak this based on how fast suggestions show up
+	    } catch (InterruptedException e) {
+	        e.printStackTrace();
+	    }
+
+	    // Use arrow down and enter to select the first suggestion
+	    input.sendKeys(Keys.ARROW_DOWN);
+	    input.sendKeys(Keys.ENTER);
+
+
+		}
+
+
+         
+		
+	
+	
+	public void sameTo()
+	{
+
+
+	}
+	
+	
+
+}

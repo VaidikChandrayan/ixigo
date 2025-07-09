@@ -3,6 +3,7 @@ package com.stepDefinition;
 import org.openqa.selenium.WebDriver;
 
 import com.pages.BasePage;
+import com.pages.FlightNegativeDataPage;
 import com.pages.SearchTripPage;
 import com.setup.BaseSteps;
 
@@ -14,7 +15,7 @@ public class FlightTest {
 	WebDriver driver;
 	BasePage pg;
 	SearchTripPage st;
-	
+	FlightNegativeDataPage nf;
 //------------------------------------------Background-------------------------------------------------------
 	
 	@Given("User is logged into Ixigo application")
@@ -50,7 +51,7 @@ public class FlightTest {
 	}
 	@When("User selects a future departure date")
 	public void user_selects_a_future_departure_date() {
-	   st.selctDate();
+	   st.selctDateOneway();
 	}
 	@When("User clicks on Search flights")
 	public void user_clicks_on_search_flights() {
@@ -62,7 +63,7 @@ public class FlightTest {
 	    
 	}
 	
-	//------------------------------------Scenario 2------------------------------------------------------------------
+//------------------------------------Scenario 2------------------------------------------------------------------
 
 	
 	@When("User selects the round trip")
@@ -70,8 +71,7 @@ public class FlightTest {
 		pg = new BasePage(driver);
 		st = new SearchTripPage(driver);
 		st.roundTrip();
-		
-	    
+
 	}
 	@When("User enters city name in the From field")
 	public void user_enters_city_name_in_the_from_field() {
@@ -85,11 +85,11 @@ public class FlightTest {
 	}
 	@When("User selects a departure date")
 	public void user_selects_a_departure_date() {
-	  st.selctDate();
+	  st.selctDateOneway();
 	}
 	@When("User selects a future return date")
 	public void user_selects_a_future_return_date() {
-	   st.selctDate();
+	   st.selectDateRoundTrip();
 	}
 	@When("User clicks on the Search flights")
 	public void user_clicks_on_the_search_flights() {
@@ -100,6 +100,30 @@ public class FlightTest {
 	public void user_is_redirected_to_result_page_with_the_available_flights() {
 	  
 	}
-
+	
+//------------------------------------Scenario 3------------------------------------------------------------------
+	@When("User enters same city in From Field")
+	public void user_enters_same_city_in_from_field() {
+		pg = new BasePage(driver);
+		st = new SearchTripPage(driver);
+		nf = new FlightNegativeDataPage(driver);
+		
+		nf.sameFrom();
+	    
+	}
+	@When("User enters same city in To Field")
+	public void user_enters_same_city_in_to_field() {
+	    nf.sameTo();
+	}
+	@When("User click on Search for invalid data")
+	public void user_click_on_search_for_invalid_data() {
+		pg.clickSearch();
+		
+	    
+	}
+	@Then("User should see error message")
+	public void user_should_see_error_message() {
+	    
+	}
 
 }

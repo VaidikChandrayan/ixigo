@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="com.pages.SearchTripPage"/>
+    <fullyQualifiedTypeName name="org.openqa.selenium.support.ui.WebDriverWait"/>
+    <fullyQualifiedTypeName name="io.cucumber.messages.types.Duration"/>
+    <fullyQualifiedTypeName name="java.time.Duration"/>
+    <fullyQualifiedTypeName name="com.pages.FlightNegativeDataPage"/>
+    <fullyQualifiedTypeName name="org.openqa.selenium.support.ui.ExpectedConditions"/>
+    <fullyQualifiedTypeName name="org.openqa.selenium.JavascriptExecutor"/>
+    <fullyQualifiedTypeName name="org.openqa.selenium.interactions.Actions"/>
+    <fullyQualifiedTypeName name="org.openqa.selenium.By"/>
+    <fullyQualifiedTypeName name="org.openqa.selenium.Keys"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+</qualifiedTypeNameHistroy>

@@ -23,3 +23,11 @@ And User selects a departure date
 And User selects a future return date
 And User clicks on the Search flights
 Then User is redirected to result page with the available flights  
+
+
+@errorcheck
+Scenario: Validate error when same city is entered in From and To field
+When User enters same city in From Field
+And User enters same city in To Field
+And User click on Search for invalid data
+Then User should see error message

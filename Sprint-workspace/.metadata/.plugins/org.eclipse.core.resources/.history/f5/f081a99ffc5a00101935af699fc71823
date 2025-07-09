@@ -1,0 +1,36 @@
+package com.pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+public class SearchTripPage extends BasePage{
+
+	
+	public SearchTripPage(WebDriver driver) {
+		super(driver);
+		// TODO Auto-generated constructor stubs
+	}
+
+
+	@FindBy(xpath="//button[contains (text(),\"One Way\")]")
+	WebElement oneWayButton;
+	
+	@FindBy(xpath="//*[text()='Tue, 08 Jul']")
+	WebElement dateField;
+	
+	@FindBy(css="abbr[aria-label='July 9, 2025']")
+	WebElement dateClick;
+
+	
+	@FindBy(xpath="//button[normalize-space()='Search']")
+	WebElement searchButton;
+	
+	
+	public void onewaySelect() 
+	{
+		WebElement oneWayButton = driver.findElement(By.xpath("//button[contains (text(),\"One Way\")]"));
+				oneWayButton.click();
+	}
+}

@@ -1,0 +1,81 @@
+package com.pages;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class FlightNegativeDataPage extends BasePage {
+	
+	
+	
+
+	public FlightNegativeDataPage(WebDriver driver) {
+		super(driver);
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+		
+	}
+	
+	public void sameFrom()
+	{
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        wait.until(ExpectedConditions.elementToBeClickable(FromOneWay)).click();
+//        FromOneWay.sendKeys(prop.getProperty("FromCity"));
+//	    WebElement sugg = wait.until(ExpectedConditions.elementToBeClickable(puneOption));
+////        wait.until(ExpectedConditions.visibilityOf(puneOption)).click();
+////        WebElement sugg = wait.until(ExpectedConditions.elementToBeClickable(puneOption));
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", sugg);
+		
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+	    wait.until(ExpectedConditions.elementToBeClickable(FromOneWay)).click();
+
+	    WebElement fromInput = wait.until(ExpectedConditions.visibilityOfElementLocated(
+	        By.xpath("//span[contains(text(),'From')]/following::input[1]")));
+
+	    fromInput.clear();
+
+	    Actions actions = new Actions(driver);
+	    actions.moveToElement(fromInput).click().sendKeys(prop.getProperty("FromCity")).perform();
+
+	    // Wait for dropdown to load
+	    wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[contains(text(),'Pune')]")));
+
+	    // Now either:
+	    // Option A: Click via JavaScript (if element is clearly visible in DOM)
+	    WebElement sugg = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(),'Pune')]")));
+	    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", sugg);
+	    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", sugg);
+
+
+         
+		
+	}
+	
+	public void sameTo()
+	{
+		    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		    
+		    wait.until(ExpectedConditions.elementToBeClickable(ToOneWay)).click();
+		    ToOneWay.sendKeys(prop.getProperty("FromCity"));
+
+		    // Wait for the element to appear in the DOM
+		    WebElement sugg = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[contains(text(),'Pune')]")));
+
+		    // Scroll and click via JS (ensures visibility and interaction)
+		    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", sugg);
+		    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", sugg);
+		}
+
+	}
+	
+	
+
+

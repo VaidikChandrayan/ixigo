@@ -1,10 +1,14 @@
 package com.pages;
 
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SearchTripPage extends BasePage{
 
@@ -15,13 +19,13 @@ public class SearchTripPage extends BasePage{
 	@FindBy(xpath="//button[contains (text(),\"One Way\")]")
 	WebElement oneWayButton;
 	
-	@FindBy(xpath="//*[text()='Tue, 08 Jul']")
+	@FindBy(css="abbr[aria-label='July 9, 2025']")
 	WebElement dateField;
 	
-	@FindBy(css="abbr[aria-label='July 9, 2025']")
+	@FindBy(css="abbr[aria-label='July 10, 2025']")
 	WebElement dateClick;
 	
-	@FindBy(xpath="button[contains(text(),'Round Trip')]")
+	@FindBy(xpath="//button[contains(text(),'Round Trip')]")
 	WebElement roundTripButton;
 
 	public SearchTripPage(WebDriver driver) {
@@ -34,29 +38,28 @@ public class SearchTripPage extends BasePage{
 	
 	public void onewaySelect() 
 	{
-		WebElement oneWayButton = driver.findElement(By.xpath("//button[contains (text(),\"One Way\")]"));
-				oneWayButton.click();
+		
+	oneWayButton.click();
 	}
 	
 	public void roundTrip()
 	{
-		WebElement roundTripButton  = driver.findElement(By.xpath("//button[contains(text(),'Round Trip')]"));
 		roundTripButton.click();
 	}
 	
-	public void selctDate()
-    {
 	
-	    dateField.click();
-	    try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    dateClick.click();
-	    
+	public void selctDateOneway()
+    {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		// Wait for and click the first date
+        wait.until(ExpectedConditions.elementToBeClickable(dateField)).click();
+	}
 
-
-    }
+	public void selectDateRoundTrip() 
+	{
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(dateClick)).click();	
+	}
+	
+	
 }
