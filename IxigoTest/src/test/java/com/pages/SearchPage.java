@@ -38,18 +38,6 @@ public class SearchPage extends BasePage {
 	@FindBy(xpath = "//div[contains(@class,'rd-date')]")
 	private WebElement dateBox;
 
-	// guests section opener
-//    @FindBy(xpath = "//div[contains(text(),'Guests')]")
-//    private WebElement guestsSection;
-// 
-//    // plus button for Adults (+)
-//    @FindBy(xpath = "(//div[contains(text(),'Adults')]/following-sibling::div//button[contains(text(),'+')])[1]")
-//    private WebElement plusAdultBtn;
-// 
-//    // “Apply” / “Done” button inside guest panel
-//    @FindBy(xpath = "//button[text()='Apply' or text()='Done']")
-//    private WebElement applyGuestsBtn;
-
 	// Search Hotels button
 	@FindBy(xpath = "/html/body/main/div[4]/div[2]/div/button")
 	private WebElement searchBtn;
@@ -62,12 +50,12 @@ public class SearchPage extends BasePage {
 		this.driver = driver;
 		this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 		this.js = (JavascriptExecutor) driver;
-		PageFactory.initElements(driver, this);
+		//PageFactory.initElements(driver, this);
 	}
 
 	
 	
-	//---------------------------------Scenario 1 -----------------------------------
+	//===================================Scenario-1 Methods==========================================
 	
 	
 	public void loadHomePage() {
@@ -91,7 +79,7 @@ public class SearchPage extends BasePage {
 		} catch (TimeoutException e) {
 			System.out.println("Pop-up not shown in time, trying fallback...");
 
-			// Fallback: Click somewhere on the page or use Robot
+			//  Click somewhere on the page or use Robot
 			try {
 				WebElement body = driver.findElement(By.tagName("body"));
 				body.click();
@@ -111,7 +99,7 @@ public class SearchPage extends BasePage {
 		}
 	}
 
-	// And – click the “Hotels” tab in navbar
+	// click the “Hotels” tab in navbar
 	public void clickHotelsTab() {
 		wait.until(ExpectedConditions.elementToBeClickable(hotelsTab)).click();
 		System.out.println("Hotels tab clicked");
@@ -143,7 +131,7 @@ public class SearchPage extends BasePage {
 
 			System.out.println("Entered destination: " + place);
 		} catch (Exception e) {
-			System.out.println("X Failed to enter destination: " + e.getMessage());
+			System.out.println("Failed to enter destination: " + e.getMessage());
 		}
 	}
 
@@ -162,9 +150,9 @@ public class SearchPage extends BasePage {
 	public void selectCheckInCheckOutDates() {
 		
 		WebElement checkIn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
-				"/html/body/main/div[4]/div[2]/div/div[2]/div[3]/div/div[1]/div/div[2]/div[1]/div/div/div[2]/button[10]")));
+				"/html/body/main/div[4]/div[2]/div/div[2]/div[3]/div/div[1]/div/div[2]/div[1]/div/div/div[2]/button[12]")));
 		WebElement checkOut = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
-				"/html/body/main/div[4]/div[2]/div/div[2]/div[3]/div/div[1]/div/div[2]/div[1]/div/div/div[2]/button[11]")));
+				"/html/body/main/div[4]/div[2]/div/div[2]/div[3]/div/div[1]/div/div[2]/div[1]/div/div/div[2]/button[13]")));
 		checkIn.click();
 		checkOut.click();
 	}

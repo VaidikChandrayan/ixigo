@@ -38,7 +38,6 @@ public class HotelBookingPage extends BasePage {
 	@FindBy(xpath = "/html/body/div[3]/div[2]/div[2]/div[1]/div[2]/div[2]/div[2]/div/div[1]/div/div")
 	WebElement areaSuggestions;
 
-	/* ---------- Scenario-5: Most Popular filter locators ---------- */
 	@FindBy(xpath = "/html/body/div[3]/div[2]/div[2]/div[1]/div[2]/div[3]/p")
 	WebElement mostPopularHeader;
 
@@ -83,21 +82,13 @@ public class HotelBookingPage extends BasePage {
 		}
 	}
 
-	/*public void selectRandomSortOption() {
-		try {
-
-			sortOptions.click();
-			System.out.println("Selected sort option: ");
-		} catch (Exception e) {
-			System.out.println("Failed to select sort option: " + e.getMessage());
-		}
-	}*/
+	
 	public void selectRandomSortOption() {
 	    try {
 	        Thread.sleep(2000); // Wait for rating options to be visible
 	 
 	        // Use CSS selector to fetch all rating filter elements
-	        List<WebElement> sortOptions = driver.findElements(By.cssSelector("body > div.min-w-1336 > div:nth-child(2) > div.container.flex.items-start.gap-x-20 > div.flex-1 > div > div > div.relative.flex.items-center.gap-x-20 > div > div.absolute.right-0.z-50.cursor-pointer > div")); // Replace with actual class
+	        List<WebElement> sortOptions = driver.findElements(By.cssSelector("body > div.min-w-1336 > div:nth-child(2) > div.container.flex.items-start.gap-x-20 > div.flex-1 > div > div > div.relative.flex.items-center.gap-x-20 > div > div.absolute.right-0.z-50.cursor-pointer")); // Replace with actual class
 	 
 	        if (sortOptions.size() == 0) {
 	            throw new RuntimeException(" No dropdown options found using CSS Selector.");
@@ -116,7 +107,20 @@ public class HotelBookingPage extends BasePage {
 	        System.out.println("Failed to select dropdown option: " + e.getMessage());
 	    }
 	}
-	 
+	
+	
+	public void scrollToSearchWithinArea() {
+		try {
+			WebElement mostPopular = wait.until(ExpectedConditions
+					.visibilityOfElementLocated(By.xpath("/html/body/div[3]/div[2]/div[2]/div[1]/div[2]/div[1]/div/div[1]/p")));
+			
+			js.executeScript("arguments[0].scrollIntoView(true);", mostPopular);
+			Thread.sleep(1000);
+			System.out.println("Scrolled to Search within area");
+		} catch (Exception e) {
+			System.out.println("Failed to scroll to Search within area: " + e.getMessage());
+		}
+	}
 
 
 	// open the “Search within area” input
@@ -158,17 +162,13 @@ public class HotelBookingPage extends BasePage {
 	// quick validation that results list refreshed (url or title contains the area)
 	public boolean isAreaFilterApplied() {
 		try {
-			Thread.sleep(1500); // allow results to reload
+			Thread.sleep(1500); 
 			return driver.getPageSource().toLowerCase().contains("showing properties")
 					|| driver.getCurrentUrl().contains("&area=");
 		} catch (Exception ignored) {
 			return false;
 		}
 	}
-	
-	
-
-	//=================================== Scenario  4 ==============================================
 	
 	
 	
@@ -203,6 +203,11 @@ public class HotelBookingPage extends BasePage {
 
 	public void selectParkingAvailableFilter() {
 		try {
+//			WebElement viewMore = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
+//					"/html/body/div[3]/div[2]/div[2]/div[1]/div[2]/div[3]/button")));
+//			viewMore.click();
+			
+			
 
 			// Click on "Parking Available"
 			By parkingFilter = By.xpath("/html/body/div[3]/div[2]/div[2]/div[1]/div[2]/div[3]/div[4]");
@@ -229,7 +234,7 @@ public class HotelBookingPage extends BasePage {
 
 	
 	
-	// ==================================Scenario 5 ======================================
+	//=================================== Scenario-4 Methods==============================================
 	
 	
 
@@ -324,7 +329,7 @@ public class HotelBookingPage extends BasePage {
 	
 	
 	
-	//=======================================Scenario 6 ==========================================
+	//=======================================Scenario-5 Methods==========================================
 	
 	
 	
@@ -343,24 +348,24 @@ public class HotelBookingPage extends BasePage {
 
 	// Validate redirection to reservation page
 	
-	 public boolean isOnReservationPage() { 
-		 try { 
-	 // Adjust this check as per actual reservation page element/text/url return
-	 wait.until(ExpectedConditions.urlContains("/hotels")); 
-	 } catch (Exception e)
-	 { 
-		 System.out.println("Failed to verify reservation page: " +e.getMessage()); 
-		 return false; 
-		 }
-		 return false;
-	 
-	    
-	 }
+	public boolean isOnReservationPage() {
+	    try {
+	        String currentUrl = driver.getCurrentUrl();
+	        System.out.println("Current URL: " + currentUrl);
+	        
+	        // Check if the URL contains "hotels"
+	        return currentUrl.contains("/hotels/");
+	        
+	    } catch (Exception e) {
+	        System.out.println("Failed to verify reservation page: " + e.getMessage());
+	        return false;
+	    }
+	}
 	 
 	
 	
 
-	// ==================================== Scenario 7 (Negative Scenario)===========================================
+	// ==================================== Scenario-6 (Negative Scenario)===========================================
 
 	
 	 public void selectTodayAsCheckInDate() {

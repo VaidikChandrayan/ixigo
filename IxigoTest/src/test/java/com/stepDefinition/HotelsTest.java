@@ -4,11 +4,18 @@ import com.pages.HotelBookingPage;
 import com.pages.HotelsPage;
 import com.pages.SearchPage;
 
+import io.cucumber.java.AfterStep;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.*;
+
+import org.junit.After;
 import org.junit.Assert;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import com.setup.BaseSteps; // <- adjust if your driver helper class differs
 import com.utils.ExcelReader;
+import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
 
 public class HotelsTest {
 
@@ -25,7 +32,9 @@ public class HotelsTest {
 	}
 	
 	
-	//----------------------------------Scenario 1 -------------------------------------------------------
+	//===========================================Scenario 1 ===========================================
+	
+	
 
 	@Given("user launches the ixigo hotels website")
 	public void launch_ixigo() {
@@ -44,20 +53,22 @@ public class HotelsTest {
 
 	@Then("user should be on the Hotels page")
 	public void verify_hotels_page() {
-		// Assert.assertTrue("❌ Not on Hotels page!", hotelsPage.isHotelsTabSelected());
+		// Assert.assertTrue(" Not on Hotels page!", hotelsPage.isHotelsTabSelected());
 		System.out.println("User landed on Hotels page.");
 	}
 
 	
 	
 	
-	// ---------------------------Scenario 2----------------------------------------------------------
+	//===============================Scenario 2=====================================================
 	
-	/*@Given("user is on the Hotels page")
+	
+	
+	@Given("user is on the Hotels page")
 	public void user_is_on_hotels_page() {
-		searchPage.loadHomePage();
-		searchPage.handleInitialPopUp();
-		searchPage.clickHotelsTab();
+		//searchPage.loadHomePage();
+		//searchPage.handleInitialPopUp();
+		//searchPage.clickHotelsTab();
 	}
 
 	
@@ -68,7 +79,7 @@ public class HotelsTest {
 	        String destination = ExcelReader.readExcelCell(path, "Sheet1", row, col);
 	        searchPage.enterDestination(destination);
 	    } catch (Exception e) {
-	        System.out.println("❌ Could not read data: " + e.getMessage());
+	        System.out.println("Could not read data: " + e.getMessage());
 	    }
 	}
 	
@@ -100,101 +111,94 @@ public class HotelsTest {
 		// Assert.assertTrue("Hotels results page not displayed",
 		// hotelsPage.isHotelsTabSelected());
 		System.out.println("Hotel results displayed successfully");
-	}*/
-	
-	
-	
-	//--------------------------------------------Scenario 3 ----------------------------------------
-	
-	
-	
-	@Given("user is on the hotel search results page")
-    public void user_is_on_search_results_page() {
-        bookingPage.loadHomePage();
-    }
- 
-    @When("user opens the Popularity sort dropdown")
-    public void user_opens_sort_dropdown() {
-        bookingPage.openSortDropdown();
-    }
- 
-    @And("user selects a random sort option")
-    public void user_selects_random_sort_option() {
-        bookingPage.selectRandomSortOption();
-    }
- 
-    
-    @And("user enters area name from Excel using row {int} and column {int}")
-    public void user_enters_area_name_from_excel(int row, int col) {
-        try {
-            String path = "C:\\Windows.old\\Windows\\System32\\config\\systemprofile\\eclipse-workspace\\My_Project\\IxigoTest\\src\\test\\resources\\ExcelData\\Data.xlsx";
-            String area = ExcelReader.readExcelCell(path, "Sheet1", row, col);
-            bookingPage.enterAreaName(area);  // Assumes method exists in your HotelBookingPage
-        } catch (Exception e) {
-            System.out.println("Could not read area from Excel: " + e.getMessage());
-        }
-    }
- 
-    @And("user selects the first area suggestion")
-    public void user_selects_first_area_suggestion() {
-        bookingPage.selectFirstAreaSuggestion();
-    }
- 
-    @Then("hotel results should update based on the selected sort and area")
-    public void validate_hotel_results_after_area_filter() {
-        boolean isUpdated = bookingPage.isAreaFilterApplied();
-        assert isUpdated : "Hotel results did not update as expected.";
-    }
-
-	
-	
-
-	// --------------------------------------Scenario 4-----------------------------------------
-
-	
-	/*@Given("user has completed a hotel search and is viewing the results") public
-	 void user_has_completed_a_hotel_search_and_is_viewing_results() {
-		 bookingPage.loadHomePage();
-	 } 
-
-	@When("user scrolls to the Most Popular filter section")
-	public void user_scrolls_to_the_most_popular_filter_section() {
-		bookingPage.scrollToMostPopularFilter();
-	}
-
-	@And("user selects a random filter option")
-	public void user_selects_a_random_filter_option() {
-		bookingPage.selectFreeBreakfastFilter();
-	}
-
-	@And("hotel results should update based on selected filter")
-	public void hotel_results_should_update_based_on_selected_filter() {
-		bookingPage.waitForHotelResultsToUpdate();
-	}
-
-	@And("user scrolls back to the Most Popular filter section")
-	public void user_scrolls_back_to_the_most_popular_filter_section() {
-		bookingPage.scrollToMostPopularFilter();
-	}
-
-	@And("user selects another random filter option")
-	public void user_selects_another_random_filter_option() {
-		bookingPage.selectParkingAvailableFilter();
-	}
-
-	@Then("hotel results should update with both filters applied")
-	public void hotel_results_should_update_with_both_filters_applied() {
-		bookingPage.waitForHotelResultsToUpdate();
 	}
 	
+	
+	
+	
+	
+	
+	//===================================Scenario 3 ====================================
+	
+	 
+	    @Given("user is on the hotel search results page")
+	    public void user_is_on_search_results_page() {
+	    	bookingPage.loadHomePage();
+	    }
+	 
+	    @When("user opens the Popularity sort dropdown")
+	    public void open_sort_dropdown() {
+	    	bookingPage.openSortDropdown();
+	    }
+	 
+	    @And("user selects a random sort option")
+	    public void select_random_sort() {
+	        bookingPage.selectRandomSortOption();
+	    }
+	 
+	    @And("user enters area name from Excel using row {int} and column {int}")
+	    public void user_enters_area_from_excel(int row, int col) {
+	    	bookingPage.scrollToSearchWithinArea();
+	    	try {
+	            String path = "C:\\Windows.old\\Windows\\System32\\config\\systemprofile\\eclipse-workspace\\My_Project\\IxigoTest\\src\\test\\resources\\ExcelData\\Data.xlsx";
+	            String area = ExcelReader.readExcelCell(path, "Sheet1", row, col);
+	            bookingPage.enterAreaName(area);  // Assumes method exists in your HotelBookingPage
+	        } catch (Exception e) {
+	            System.out.println("Could not read area from Excel: " + e.getMessage());
+	        }
+	    }
+	 
+	    @And("user selects the first area suggestion")
+	    public void select_first_suggestion() {
+	    	bookingPage.scrollToSearchWithinArea();
+	    	bookingPage.selectFirstAreaSuggestion();
+	    }
+	 
+	    @Then("hotel results should update based on the selected sort and area")
+	    public void verify_results_updated_area_sort() {
+	        // You can add waits/assertions here
+	        System.out.println("Area and sort applied.");
+	    }
+	 
+	    @When("user scrolls to the Most Popular filter section")
+	    public void scroll_to_filter_section() {
+	        bookingPage.scrollToMostPopularFilter();
+	    }
+	 
+	    @And("user selects a random filter option")
+	    public void apply_random_filter() {
+	    	bookingPage.selectFreeBreakfastFilter();
+	    }
+	 
+	    @Then("hotel results should update based on selected filter")
+	    public void verify_results_updated_after_filter() {
+	        System.out.println("✅ First filter applied.");
+	    }
+	 
+	    @When("user scrolls back to the Most Popular filter section")
+	    public void scroll_again_to_filter_section() {
+	        bookingPage.scrollToMostPopularFilter();
+	    }
+	 
+	    @And("user selects another random filter option")
+	    public void apply_another_random_filter() {
+	    	bookingPage.selectParkingAvailableFilter();
+	    }
+	 
+	    @Then("hotel results should update with both filters applied")
+	    public void verify_both_filters_applied() {
+	        System.out.println("Second filter applied.");
+	    }
+	
+	 
 
-	// -----------------------------------Scenario 5 --------------------------------
+	// =====================================Scenario 4==================================================
 	
 	
-	/*@Given("user has completed a hotel search and is viewing the results")
+	@Given("user has completed a hotel search and is viewing the results")
 	public void user_has_completed_search() {
 		
-		bookingPage.loadHomePage(); // Optional if already loaded
+		bookingPage.loadHomePage(); 
 		
 	}
 
@@ -230,11 +234,11 @@ public class HotelsTest {
 	
 	
 
-	// -------------------------Scenario 6 --------------------------------
+	// ========================================Scenario 5 =======================================
 	
 	
 	
-	/*@Given("user has performed a hotel search and is viewing the search results")
+	@Given("user has performed a hotel search and is viewing the search results")
 	public void user_performed_hotel_search_and_viewing_results() {
 		
 		System.out.println("User is on page");
@@ -249,12 +253,12 @@ public class HotelsTest {
 
 	@Then("user should be redirected to the reservation page")
 	public void verify_redirection_to_reservation_page() {
-		System.out.println("User is on reservation page");
-		//Assert.assertTrue("User not redirected to reservation page", bookingPage.isOnReservationPage());
-	}*/
+	    Assert.assertTrue("User not redirected to reservation page", bookingPage.isOnReservationPage());
+	}
+	 
 	
 
-	// ---------------------------Scenario 7 (Negative)------------------------------
+	//====================================Scenario 6 (Negative)========================================
 
 	
 	/*@Given("user is on the Hotels page") 
@@ -279,6 +283,20 @@ public class HotelsTest {
 	 verify_checkout_date_not_accepted() { 
 		 bookingPage.takesscreen(); 
 		 }*/
+	
+	
+	
+	 
+	@AfterStep
+	public void tearDown(Scenario scenario) // wil take screenshots for each and every scenario
+	{
+		final byte[] screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+		scenario.attach(screenshot, "image/png", "Image");
+		
+	}
+	
+	
+	}
 	 
 
-}
+

@@ -6,7 +6,7 @@ import io.cucumber.testng.CucumberOptions;
 @CucumberOptions(
     features = "C:\\Windows.old\\Windows\\System32\\config\\systemprofile\\eclipse-workspace\\My_Project\\IxigoTest\\src\\test\\resources\\Features\\Hotels.feature",
     glue = {"com.stepDefinition"},
-    tags = "@log2",
+    //tags = "@log3",
     		plugin = {
     			    "pretty",
     			    "html:target/cucumber-report.html",

@@ -1,27 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+<testng-results ignored="0" total="5" passed="5" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-07-08T16:11:53 IST" name="Default suite" finished-at="2025-07-08T16:12:33 IST" duration-ms="40090">
+  <suite started-at="2025-07-09T16:00:27 IST" name="Default suite" finished-at="2025-07-09T16:02:11 IST" duration-ms="103202">
     <groups>
       <group name="cucumber">
         <method signature="AbstractTestNGCucumberTests.runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:com.runner.TestRunnerWithTestNG@f79e]" name="runScenario" class="io.cucumber.testng.AbstractTestNGCucumberTests"/>
       </group> <!-- cucumber -->
     </groups>
-    <test started-at="2025-07-08T16:11:53 IST" name="Default test" finished-at="2025-07-08T16:12:33 IST" duration-ms="40090">
+    <test started-at="2025-07-09T16:00:27 IST" name="Default test" finished-at="2025-07-09T16:02:11 IST" duration-ms="103202">
       <class name="com.runner.TestRunnerWithTestNG">
-        <test-method is-config="true" signature="setUpClass(org.testng.ITestContext)[pri:0, instance:com.runner.TestRunnerWithTestNG@f79e]" started-at="2025-07-08T16:11:53 IST" name="setUpClass" finished-at="2025-07-08T16:11:55 IST" duration-ms="2462" status="PASS">
+        <test-method is-config="true" signature="setUpClass(org.testng.ITestContext)[pri:0, instance:com.runner.TestRunnerWithTestNG@f79e]" started-at="2025-07-09T16:00:28 IST" name="setUpClass" finished-at="2025-07-09T16:00:30 IST" duration-ms="2364" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[org.testng.TestRunner@1b4a3a1]]>
+                <![CDATA[org.testng.TestRunner@25b74370]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpClass -->
-        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:com.runner.TestRunnerWithTestNG@f79e]" started-at="2025-07-08T16:11:55 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2025-07-08T16:12:31 IST" duration-ms="35391" status="PASS">
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:com.runner.TestRunnerWithTestNG@f79e]" started-at="2025-07-09T16:00:30 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2025-07-09T16:01:01 IST" duration-ms="30745" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA["User opens ixigo site and navigates to Hotels section"]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA["Ixigo Hotels Module"]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runScenario -->
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:com.runner.TestRunnerWithTestNG@f79e]" started-at="2025-07-09T16:01:01 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2025-07-09T16:01:12 IST" duration-ms="11019" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -37,7 +53,55 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runScenario -->
-        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:com.runner.TestRunnerWithTestNG@f79e]" started-at="2025-07-08T16:12:31 IST" name="tearDownClass" finished-at="2025-07-08T16:12:33 IST" duration-ms="2094" status="PASS">
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:com.runner.TestRunnerWithTestNG@f79e]" started-at="2025-07-09T16:01:12 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2025-07-09T16:01:38 IST" duration-ms="26591" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA["User sorts hotels, enters area from Excel, and applies multiple Most Popular filters"]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA["Ixigo Hotels Module"]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runScenario -->
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:com.runner.TestRunnerWithTestNG@f79e]" started-at="2025-07-09T16:01:38 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2025-07-09T16:02:00 IST" duration-ms="21878" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA["User applies filters from User Rating and Star Rating sections"]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA["Ixigo Hotels Module"]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runScenario -->
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:com.runner.TestRunnerWithTestNG@f79e]" started-at="2025-07-09T16:02:00 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2025-07-09T16:02:09 IST" duration-ms="8664" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA["Verify Book Now button redirects to the reservation page"]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA["Ixigo Hotels Module"]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runScenario -->
+        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:com.runner.TestRunnerWithTestNG@f79e]" started-at="2025-07-09T16:02:09 IST" name="tearDownClass" finished-at="2025-07-09T16:02:11 IST" duration-ms="1664" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownClass -->
