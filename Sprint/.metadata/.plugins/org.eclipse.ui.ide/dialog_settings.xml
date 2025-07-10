@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="installedFeatures">
+		<item value="org.eclipse.eclemma.feature:3.1.6.202206011447"/>
+		<item value="org.eclipse.egit:6.4.0.202211300538-r"/>
+		<item value="org.eclipse.emf.common:2.35.0.v20250401-0947"/>
+		<item value="org.eclipse.emf.ecore:2.40.0.v20250414-1351"/>
+		<item value="org.eclipse.help:2.3.1200.v20221123-1800"/>
+		<item value="org.eclipse.jdt:3.18.1400.v20221123-1800"/>
+		<item value="org.eclipse.jgit.gpg.bc:6.4.0.202211300538-r"/>
+		<item value="org.eclipse.jgit.ssh.apache:6.4.0.202211300538-r"/>
+		<item value="org.eclipse.jgit:6.4.0.202211300538-r"/>
+		<item value="org.eclipse.m2e.feature:2.1.2.20221130-2239"/>
+		<item value="org.eclipse.m2e.logback.feature:2.1.0.20221015-0744"/>
+		<item value="org.eclipse.mylyn.bugzilla_feature:3.26.0.v20230221-1930"/>
+		<item value="org.eclipse.mylyn.commons.identity:3.26.0.v20230225-1108"/>
+		<item value="org.eclipse.mylyn.commons.notifications:3.26.0.v20230320-1407"/>
+		<item value="org.eclipse.mylyn.commons.repositories:3.26.0.v20230131-2052"/>
+		<item value="org.eclipse.mylyn.commons:3.26.0.v20221229-1738"/>
+		<item value="org.eclipse.mylyn.context_feature:3.26.0.v20221229-1738"/>
+		<item value="org.eclipse.mylyn.discovery:3.26.0.v20221229-1738"/>
+		<item value="org.eclipse.mylyn.ide_feature:3.26.0.v20221229-1738"/>
+		<item value="org.eclipse.mylyn.monitor:3.26.0.v20221229-1738"/>
+		<item value="org.eclipse.mylyn.tasks.ide:3.26.0.v20221223-1911"/>
+		<item value="org.eclipse.mylyn.team_feature:3.26.0.v20221229-1738"/>
+		<item value="org.eclipse.mylyn.wikitext.editors_feature:3.0.42.202201072301"/>
+		<item value="org.eclipse.mylyn.wikitext_feature:3.0.42.202201072301"/>
+		<item value="org.eclipse.mylyn_feature:3.26.0.v20230416-1636"/>
+		<item value="org.eclipse.oomph.p2:1.33.0.v20250302-1233"/>
+		<item value="org.eclipse.oomph.setup.core:1.34.0.v20250407-1158"/>
+		<item value="org.eclipse.oomph.setup:1.36.0.v20250407-1158"/>
+		<item value="org.eclipse.platform:4.26.0.v20221123-2302"/>
+		<item value="org.eclipse.rcp:4.26.0.v20221123-2302"/>
+		<item value="org.eclipse.test:3.8.300.v20221120-0720"/>
+		<item value="org.eclipse.tm.terminal.connector.ssh.feature:11.0.0.202211062329"/>
+		<item value="org.eclipse.tm.terminal.control.feature:11.0.0.202211062329"/>
+		<item value="org.eclipse.tm.terminal.feature:11.0.0.202210031642"/>
+		<item value="org.eclipse.tm.terminal.view.feature:11.0.0.202211062329"/>
+		<item value="org.sonarlint.eclipse.feature.source:4.1.0.201901311043"/>
+		<item value="org.sonarlint.eclipse.feature:4.1.0.201901311043"/>
+		<item value="org.testng.eclipse:7.11.0.202503091801"/>
+	</list>
+</section>

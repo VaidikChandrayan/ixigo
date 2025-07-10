@@ -35,7 +35,7 @@ public class TrainTest {
 	
 	@Given("User is on the train search page")
 	public void user_is_on_the_train_search_page() {
-		driver = BaseSteps.chromedriver();
+		driver = BaseSteps.edgedriver();
 	}
 	
 //---------------------------------------------------------Scenario 1---------------------------------------

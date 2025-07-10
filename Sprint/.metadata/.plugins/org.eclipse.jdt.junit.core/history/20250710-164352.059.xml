@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="TestRunnerJUnit" project="ixigo" tests="1" started="1" failures="0" errors="2" ignored="0">
+  <testsuite name="com.runner.TestRunnerJUnit" time="10.476">
+    <testsuite name="Ixigo Train Search Module" time="10.476">
+      <testcase name="User checks seat availability after searching trains" classname="Ixigo Train Search Module" time="10.476">
+        <error>org.openqa.selenium.NoSuchSessionException: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: MicrosoftEdge=138.0.3351.65)
+Build info: version: '4.20.0', revision: '866c76ca80'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.15'
+Driver info: org.openqa.selenium.edge.EdgeDriver
+Command: [84f582d625d8598b2682faf34c29b2dd, findElement {using=xpath, value=//p[contains(text(), 'Pune Jn (PUNE)')]}]
+Capabilities {acceptInsecureCerts: false, browserName: MicrosoftEdge, browserVersion: 138.0.3351.65, fedcm:accounts: true, ms:edgeOptions: {debuggerAddress: localhost:53008}, msedge: {msedgedriverVersion: 138.0.3351.77 (efaf6935b436..., userDataDir: C:\Users\PKADAM2\AppData\Lo...}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:53008/devtoo..., se:cdpVersion: 138.0.3351.65, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 84f582d625d8598b2682faf34c29b2dd&#13;
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)&#13;
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)&#13;
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)&#13;
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500)&#13;
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481)&#13;
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)&#13;
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)&#13;
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)&#13;
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:190)&#13;
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)&#13;
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)&#13;
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:518)&#13;
+	at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:165)&#13;
+	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)&#13;
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:355)&#13;
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:349)&#13;
+	at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:68)&#13;
+	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)&#13;
+	at jdk.proxy2/jdk.proxy2.$Proxy19.isDisplayed(Unknown Source)&#13;
+	at org.openqa.selenium.support.ui.ExpectedConditions.elementIfVisible(ExpectedConditions.java:304)&#13;
+	at org.openqa.selenium.support.ui.ExpectedConditions$10.apply(ExpectedConditions.java:290)&#13;
+	at org.openqa.selenium.support.ui.ExpectedConditions$10.apply(ExpectedConditions.java:287)&#13;
+	at org.openqa.selenium.support.ui.ExpectedConditions$23.apply(ExpectedConditions.java:656)&#13;
+	at org.openqa.selenium.support.ui.ExpectedConditions$23.apply(ExpectedConditions.java:652)&#13;
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:203)&#13;
+	at com.pages.BasePage.fromToData(BasePage.java:87)&#13;
+	at com.stepDefinition.TrainTest.the_user_enters_data_in_source_and_in_destination_with_date(TrainTest.java:109)&#13;
+	at ✽.the user enters data in source and in destination with date(file:///C:/Sprint/ixigo/src/test/resource/Features/Train.feature:21)&#13;
+&#13;
+org.openqa.selenium.NoSuchSessionException: invalid session id
+Build info: version: '4.20.0', revision: '866c76ca80'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.15'
+Driver info: org.openqa.selenium.edge.EdgeDriver
+Command: [84f582d625d8598b2682faf34c29b2dd, screenshot {}]
+Capabilities {acceptInsecureCerts: false, browserName: MicrosoftEdge, browserVersion: 138.0.3351.65, fedcm:accounts: true, ms:edgeOptions: {debuggerAddress: localhost:53008}, msedge: {msedgedriverVersion: 138.0.3351.77 (efaf6935b436..., userDataDir: C:\Users\PKADAM2\AppData\Lo...}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:53008/devtoo..., se:cdpVersion: 138.0.3351.65, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 84f582d625d8598b2682faf34c29b2dd&#13;
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)&#13;
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)&#13;
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)&#13;
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500)&#13;
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481)&#13;
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)&#13;
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)&#13;
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)&#13;
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:190)&#13;
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)&#13;
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)&#13;
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:518)&#13;
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:591)&#13;
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:595)&#13;
+	at org.openqa.selenium.remote.RemoteWebDriver.getScreenshotAs(RemoteWebDriver.java:321)&#13;
+	at com.stepDefinition.TrainTest.tearDown(TrainTest.java:190)&#13;
+&#13;
+</error>
+      </testcase>
+    </testsuite>
+  </testsuite>
+</testrun>
