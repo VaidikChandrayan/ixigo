@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="TestRunnerjunit" project="ixigo" tests="1" started="1" failures="0" errors="1" ignored="0">
+  <testsuite name="com.runner.TestRunnerjunit" time="12.199">
+    <testsuite name="Ixigo Flight Search Module" time="12.199">
+      <testcase name="User applies airline filter" classname="Ixigo Flight Search Module" time="12.199">
+        <error>java.lang.NullPointerException: Cannot invoke "java.lang.CharSequence.codePoints()" because "key" is null&#13;
+	at org.openqa.selenium.interactions.Actions.sendKeysInTicks(Actions.java:162)&#13;
+	at org.openqa.selenium.interactions.Actions.sendKeys(Actions.java:139)&#13;
+	at com.pages.BasePage.fromData(BasePage.java:78)&#13;
+	at com.stepDefinition.FlightTest.user_enters_source_and_destination_with_date_and_clicks_on_search(FlightTest.java:153)&#13;
+	at ✽.User enters source and destination with date and clicks on search(file:///C:/Sprint-workspace/ixigo/src/test/resource/Features/Flight.feature:35)&#13;
+&#13;
+</error>
+      </testcase>
+    </testsuite>
+  </testsuite>
+</testrun>

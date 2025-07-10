@@ -1,0 +1,96 @@
+package com.pages;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.time.Duration;
+import java.util.Set;
+
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.*;
+
+public class FilterDataPage extends BasePage {
+    WebDriver driver;
+    WebDriverWait wait;
+
+    public FilterDataPage(WebDriver driver) {
+        super(driver);
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    }
+
+    public void filter() {
+        // ✅ Switch to new tab
+        String originalWindow = driver.getWindowHandle();
+        for (String handle : driver.getWindowHandles()) {
+            if (!handle.equals(originalWindow)) {
+                driver.switchTo().window(handle);
+                System.out.println("✅ Switched to tab: " + driver.getTitle());
+                break;
+            }
+        }
+
+        try {
+            // ⏳ Wait for page to load (Air India text visible)
+            By airIndiaText = By.xpath("//p[contains(text(),'Air India')]");
+            wait.until(ExpectedConditions.visibilityOfElementLocated(airIndiaText));
+            System.out.println("⏳ Results page fully loaded");
+
+            // 📜 Scroll to bottom
+            ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
+            Thread.sleep(1000);  // Let UI settle
+            System.out.println("📜 Scrolled to bottom");
+
+            // 🧯 Press ESC to close modal
+            try {
+                Robot robot = new Robot();
+                robot.keyPress(KeyEvent.VK_ESCAPE);
+                robot.keyRelease(KeyEvent.VK_ESCAPE);
+                System.out.println("🧯 ESC pressed to dismiss modal");
+                Thread.sleep(1000);
+            } catch (AWTException e) {
+                System.out.println("⚠️ ESC key failed: " + e.getMessage());
+            }
+
+            // ❌ Optional manual close if modal has visible close button
+            try {
+                WebElement closeBtn = driver.findElement(By.cssSelector(".modal-close, .backdrop-overlay"));
+                if (closeBtn.isDisplayed()) {
+                    closeBtn.click();
+                    Thread.sleep(800);
+                    System.out.println("❌ Manual close button clicked");
+                }
+            } catch (NoSuchElementException ignored) {
+                System.out.println("ℹ️ No manual close button found");
+            }
+
+            // ☁️ Wait for modal invisibility
+            try {
+                By modalLocator = By.cssSelector(".shadow-500");
+                new WebDriverWait(driver, Duration.ofSeconds(5))
+                    .until(ExpectedConditions.invisibilityOfElementLocated(modalLocator));
+                System.out.println("☁️ Modal disappeared");
+            } catch (TimeoutException te) {
+                System.out.println("⚠️ Modal may still be present, continuing anyway");
+            }
+
+            // 🔍 Locate clickable filter element
+            By clickableSpanLocator = By.xpath("//p[contains(text(),'Air India')]/ancestor::div[contains(@class,'flex')]//span[contains(@class,'inline-flex')]");
+            WebElement clickableSpan = wait.until(ExpectedConditions.presenceOfElementLocated(clickableSpanLocator));
+
+            // 👁️ Scroll directly to clickable element
+            ((JavascriptExecutor) driver).executeScript(
+                "window.scrollTo(0, arguments[0].getBoundingClientRect().top + window.scrollY - 100);",
+                clickableSpan
+            );
+            Thread.sleep(500);
+            System.out.println("🖱️ Scrolled to Air India filter");
+
+            // ✅ JavaScript click to bypass overlays
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", clickableSpan);
+            System.out.println("✅ Air India filter applied via JavaScript");
+
+        } catch (Exception e) {
+            System.out.println("🚨 Error applying filter: " + e.getMessage());
+        }
+    }
+}

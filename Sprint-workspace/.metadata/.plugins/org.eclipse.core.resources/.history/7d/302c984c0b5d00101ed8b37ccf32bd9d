@@ -1,0 +1,69 @@
+package com.pages;
+
+import java.time.Duration;
+import java.util.Set;
+
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class FilterDataPage extends BasePage {
+    WebDriver driver;
+    WebDriverWait wait;
+
+    public FilterDataPage(WebDriver driver) {
+        super(driver);
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    }
+
+    public void filter() {
+        // 🔄 Switch to the newly opened tab
+        String originalWindow = driver.getWindowHandle();
+        Set<String> allWindows = driver.getWindowHandles();
+        for (String handle : allWindows) {
+            if (!handle.equals(originalWindow)) {
+                driver.switchTo().window(handle);
+                System.out.println("✅ Switched to tab: " + driver.getTitle());
+                break;
+            }
+        }
+
+        try {
+            // ⬇️ Aggressively scroll down the page
+            ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
+            System.out.println("📜 Scrolled to bottom to expose filters");
+
+            // 🧭 Locate the clickable span near 'Air India'
+            By clickableSpanLocator = By.xpath("//p[contains(text(),'Air India')]/ancestor::div[contains(@class,'flex')]//span[contains(@class,'inline-flex')]");
+            WebElement clickableSpan = wait.until(ExpectedConditions.presenceOfElementLocated(clickableSpanLocator));
+
+            // 🔍 Scroll directly to that element
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", clickableSpan);
+            System.out.println("🖱️ Scrolled to Air India filter");
+
+            // ❌ Click neutral area to dismiss popup
+            new Actions(driver).moveByOffset(0, 0).click().perform();
+            Thread.sleep(800);  // Give time for modal to disappear
+            System.out.println("❌ Clicked outside to dismiss popup");
+
+            // ☁️ Wait until modal (if detectable) disappears
+            try {
+                By popupLocator = By.cssSelector(".shadow-500");
+                new WebDriverWait(driver, Duration.ofSeconds(5))
+                    .until(ExpectedConditions.invisibilityOfElementLocated(popupLocator));
+                System.out.println("☁️ Modal disappeared");
+            } catch (TimeoutException e) {
+                System.out.println("⚠️ Modal may still be present, proceeding anyway");
+            }
+
+            // ✅ Click Air India filter
+            wait.until(ExpectedConditions.elementToBeClickable(clickableSpan)).click();
+            System.out.println("✅ Air India filter applied");
+
+        } catch (Exception e) {
+            System.out.println("🚨 Error during filter application: " + e.getMessage());
+        }
+    }
+}

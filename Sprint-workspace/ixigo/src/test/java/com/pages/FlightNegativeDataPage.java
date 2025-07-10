@@ -1,102 +1,206 @@
+//package com.pages;
+//
+//import java.awt.AWTException;
+//import java.awt.Robot;
+//import java.awt.event.InputEvent;
+//import java.time.Duration;
+//import java.util.List;
+//import java.util.concurrent.TimeoutException;
+//
+//import org.junit.Assert;
+//import org.openqa.selenium.By;
+//import org.openqa.selenium.JavascriptExecutor;
+//import org.openqa.selenium.Point;
+//import org.openqa.selenium.WebDriver;
+//import org.openqa.selenium.WebElement;
+//import org.openqa.selenium.interactions.Actions;
+//import org.openqa.selenium.support.PageFactory;
+//import org.openqa.selenium.support.ui.ExpectedConditions;
+//import org.openqa.selenium.support.ui.WebDriverWait;
+//
+//public class FlightNegativeDataPage extends BasePage {
+//	
+//	
+//	
+//
+//	public FlightNegativeDataPage(WebDriver driver) {
+//		super(driver);
+//		this.driver = driver;
+//		PageFactory.initElements(driver, this);
+//		
+//	}
+//	
+//
+//	
+//	public void FromSameCity() {
+//	    Actions actions = new Actions(driver);
+//	    FromOneWay.click();
+//	    actions.sendKeys(prop.getProperty("FromCity")).pause(Duration.ofSeconds(1)).perform();
+//
+//	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//	    WebElement sugg = wait.until(ExpectedConditions.elementToBeClickable(puneOption));
+//	    sugg.click();
+//	}
+//
+//	public void ToSameCity() throws AWTException, InterruptedException {
+//	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+//
+//	    WebElement toInput = wait.until(ExpectedConditions.elementToBeClickable(
+//	        By.xpath("//span[contains(text(),'To')]/following::input[1]")));
+//	    toInput.click();
+//	    toInput.sendKeys("PNQ-Pune");
+//
+//	    try {
+//			Thread.sleep(1500);
+//		} catch (InterruptedException e) {
+//	
+//			e.printStackTrace();
+//		} // Let dropdown render
+//	    
+//	    Thread.sleep(2000);
+//	    Robot robot = new Robot();
+//	    Point location = toInput.getLocation();
+//	    int x = location.getX();
+//	    int y = location.getY();
+//
+//	    robot.mouseMove(x + 50, y + 50); // Offset to land inside suggestion box
+//	    robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+//	    robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+//
+//	    try {
+//			Thread.sleep(5000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} // Wait for field to clear
+//
+//	    ((JavascriptExecutor) driver).executeScript("arguments[0].blur();", toInput);
+//	}
+//
+//	public void CheckAssert() throws TimeoutException {
+//	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+//	    WebElement toInput = driver.findElement(By.xpath("//span[contains(text(),'To')]/following::input[1]"));
+//
+//	    // Wait until the field is cleared
+//		wait.until(driver -> {
+//		    String value = toInput.getAttribute("value");
+//		    System.out.println("Waiting... Current 'To' field value: " + value);
+//		    return value.isEmpty();
+//		});
+//
+//		String actualValue = toInput.getAttribute("value");
+//		System.out.println("Final 'To' field value: " + actualValue);
+//		Assert.assertEquals(actualValue, "", "Expected 'To' field to be cleared after selecting duplicate city.");
+//	}
+//}
+
+
 package com.pages;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.InputEvent;
 import java.time.Duration;
 import java.util.concurrent.TimeoutException;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class FlightNegativeDataPage extends BasePage {
-	
-	
-	
 
-	public FlightNegativeDataPage(WebDriver driver) {
-		super(driver);
-		this.driver = driver;
-		PageFactory.initElements(driver, this);
-		
-	}
-	
-	public void sameFrom()
-	{
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//        wait.until(ExpectedConditions.elementToBeClickable(FromOneWay)).click();
-//        FromOneWay.sendKeys(prop.getProperty("FromCity"));
-//	    WebElement sugg = wait.until(ExpectedConditions.elementToBeClickable(puneOption));
-////        wait.until(ExpectedConditions.visibilityOf(puneOption)).click();
-////        WebElement sugg = wait.until(ExpectedConditions.elementToBeClickable(puneOption));
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", sugg);
-		
-		
-		    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    public FlightNegativeDataPage(WebDriver driver) {
+        super(driver);
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
 
-		    // Step 1: Activate the 'From' field
-		    wait.until(ExpectedConditions.elementToBeClickable(FromOneWay)).click();
+    public void FromSameCity() {
+        Actions actions = new Actions(driver);
+        FromOneWay.click();
+        actions.sendKeys(prop.getProperty("FromCity")).pause(Duration.ofSeconds(1)).perform();
 
-		    // Step 2: Locate and type into the input
-		    WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(
-		        By.xpath("//span[contains(text(),'From')]/following::input[1]")));
-		    input.clear();
-		    input.sendKeys(prop.getProperty("FromCity"));  // e.g., "Pune"
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement sugg = wait.until(ExpectedConditions.elementToBeClickable(puneOption));
+        sugg.click();
+    }
 
-		    // Step 3: Wait for the suggestion to appear
-		    WebElement puneOption = wait.until(ExpectedConditions.presenceOfElementLocated(
-		        By.xpath("//span[contains(@class,'truncate') and contains(normalize-space(translate(., '\"', '')), 'Pune')]")));
+    public void ToSameCity() throws AWTException, InterruptedException {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
-		    // Step 4: Select the option
-		    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", puneOption);
+        WebElement toInput = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//span[contains(text(),'To')]/following::input[1]")));
+        toInput.click();
+        toInput.sendKeys("PNQ-Pune");
 
-		    // Step 5: Give the frontend time to absorb the input
-		    try {
-		        Thread.sleep(500);
-		    } catch (InterruptedException e) {
-		        Thread.currentThread().interrupt();
-		    }
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } // Let dropdown render
 
-		    // Step 6: Blur input to avoid dropdown reopening
-		    ((JavascriptExecutor) driver).executeScript("arguments[0].blur();", input);
-		}
+        Thread.sleep(2000);
+        Robot robot = new Robot();
+        Point location = toInput.getLocation();
+        int x = location.getX();
+        int y = location.getY();
 
+        robot.mouseMove(x + 50, y + 50); // Offset to land inside suggestion box
+        robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
 
-         
-		
-	
-	public void sameTo() {
-	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } // Wait for field to clear
 
-	    // Step 0: Ensure 'From' field is not actively focused to prevent dropdown flicker
-	    try {
-	        ((JavascriptExecutor) driver).executeScript("arguments[0].blur();", FromOneWay);
-	    } catch (Exception e) {
-	        System.out.println("Could not blur 'From' field (may not be present or already blurred).");
-	    }
+        ((JavascriptExecutor) driver).executeScript("arguments[0].blur();", toInput);
+    }
 
-	    // Step 1: Click the 'To' field to activate it
-	    wait.until(ExpectedConditions.elementToBeClickable(ToOneWay)).click();
+    public void CheckAssert() throws TimeoutException {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        WebElement toInput = driver.findElement(By.xpath("//span[contains(text(),'To')]/following::input[1]"));
 
-	    // Step 2: Type the same city (e.g., Pune)
-	    WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(
-	        By.xpath("//span[contains(text(),'To')]/following::input[1]")));
-	    input.sendKeys(prop.getProperty("ToCitySame")); // For example, "Pune"
+        // Wait until the field is cleared
+        wait.until(driver -> {
+            String value = toInput.getAttribute("value");
+          //  System.out.println("Waiting... Current 'To' field value: " + value);
+            return value.isEmpty();
+        });
 
-	    // Step 3: Select the suggestion from dropdown
-	    WebElement puneOption = wait.until(ExpectedConditions.elementToBeClickable(
-	        By.xpath("//*[contains(text(),'Pune') and contains(@class,'truncate')]")));
-	    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", puneOption);
+        String actualValue = toInput.getAttribute("value");
+        System.out.println("Final 'To' field value: " + actualValue);
+        Assert.assertEquals("Expected 'To' field to be cleared after selecting duplicate city.", "", actualValue);
+    }
 
-	    // Step 4: Wait for specific validation message to appear
-	    WebElement errorMsg = wait.until(ExpectedConditions.visibilityOfElementLocated(
-	        By.xpath("//div[contains(text(),'Departure and arrival airports cannot be the same')]")));
-	    System.out.println("Validation message displayed: " + errorMsg.getText());
+    //  Method to click on Air India filter
+    public void clickAirIndiaFilter() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
-	    // Step 5: Blur the input to finalize interaction and avoid reopening the dropdown
-	    ((JavascriptExecutor) driver).executeScript("arguments[0].blur();", input);
-	}
+        WebElement airIndiaCheckbox = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//label[contains(., 'Air India')]//input[@type='checkbox']")));
 
+        // Scroll into view
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", airIndiaCheckbox);
+
+        try {
+            Thread.sleep(1000); // Let UI settle
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        // Click using JS to avoid overlay/sticky banner issues
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", airIndiaCheckbox);
+
+        System.out.println("Clicked on Air India filter successfully.");
+    }
 }

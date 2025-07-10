@@ -1,0 +1,62 @@
+package com.pages;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.time.Duration;
+import java.util.Set;
+
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class FilterDataPage extends BasePage {
+    WebDriver driver;
+    WebDriverWait wait;
+
+    public FilterDataPage(WebDriver driver) {
+        super(driver);
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    }
+
+    public void filter() throws InterruptedException {
+        // 🔄 Step 1: Switch to newly opened tab
+        String originalWindow = driver.getWindowHandle();
+        Set<String> allWindows = driver.getWindowHandles();
+        for (String handle : allWindows) {
+            if (!handle.equals(originalWindow)) {
+                driver.switchTo().window(handle);
+                System.out.println("✅ Switched to tab: " + driver.getTitle());
+                break;
+            }
+        }
+
+        // ⏳ Step 2: Wait for page content to load
+        By airIndiaText = By.xpath("//p[contains(text(),'Air India')]");
+        wait.until(ExpectedConditions.presenceOfElementLocated(airIndiaText));
+        System.out.println("⏳ Page fully loaded");
+
+        // 📜 Step 3: Scroll to Air India filter
+        WebElement airIndiaElement = driver.findElement(airIndiaText);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", airIndiaElement);
+        Thread.sleep(500);
+        System.out.println("🖱️ Scrolled to Air India filter");
+
+        // ❌ Step 4: Press ESC to dismiss popup
+        try {
+            Robot robot = new Robot();
+            robot.keyPress(KeyEvent.VK_ESCAPE);
+            robot.keyRelease(KeyEvent.VK_ESCAPE);
+            Thread.sleep(500);
+            System.out.println("❌ ESC key pressed to dismiss modal");
+        } catch (AWTException e) {
+            System.out.println("⚠️ Robot ESC failed: " + e.getMessage());
+        }
+
+        // ✅ Step 5: Click the Air India checkbox
+        By airIndiaCheckbox = By.xpath("//input[@type='checkbox' and @value='AI']");
+        WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(airIndiaCheckbox));
+        checkbox.click();
+        System.out.println("✅ Air India filter applied");
+    }
+}

@@ -1,0 +1,43 @@
+package com.pages;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class PartialTextDataPage extends BasePage {
+
+	public PartialTextDataPage(WebDriver driver) {
+		super(driver);
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
+	
+	public void enterPartialText(String from,String to) 
+	{
+//		Actions actions = new Actions(driver);
+//	       FromOneWay.click();
+	       WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	       
+	       FromOneWay.click();
+	       FromOneWay.sendKeys("Pune");
+	       
+//	       JavascriptExecutor js = (JavascriptExecutor) driver;
+//	       js.executeScript("arguments[0].value='" + from + "';", FromOneWay);
+
+
+	       //FromOneWay.sendKeys(from);
+	       
+	       ToOneWay.click();
+	       ToOneWay.sendKeys(to);
+	}
+	
+	
+
+}

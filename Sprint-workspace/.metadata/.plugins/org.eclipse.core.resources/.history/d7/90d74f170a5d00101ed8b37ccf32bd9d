@@ -1,0 +1,55 @@
+package com.pages;
+
+import java.time.Duration;
+import java.util.Set;
+
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.*;
+
+public class FilterDataPage extends BasePage {
+    WebDriver driver;
+    WebDriverWait wait;
+
+    public FilterDataPage(WebDriver driver) {
+        super(driver);
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    }
+
+    public void filter() {
+        // 🔄 Switch to the newly opened tab
+        String originalWindow = driver.getWindowHandle();
+        Set<String> allWindows = driver.getWindowHandles();
+
+        for (String handle : allWindows) {
+            if (!handle.equals(originalWindow)) {
+                driver.switchTo().window(handle);
+                System.out.println("✅ Switched to tab: " + driver.getTitle());
+                break;
+            }
+        }
+
+        try {
+            // 🧭 Locate the visible checkbox container near "Air India"
+            By checkboxLocator = By.xpath("//p[contains(text(),'Air India')]/ancestor::div[contains(@class,'flex')]//span[contains(@class,'inline-flex')]");
+            WebElement clickableSpan = wait.until(ExpectedConditions.presenceOfElementLocated(checkboxLocator));
+
+            // 🖱️ Scroll to the filter
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", clickableSpan);
+            System.out.println("🖱️ Scrolled to Air India filter");
+
+            // ❌ Dismiss popup
+            new Actions(driver).moveByOffset(10, 10).click().perform();
+            Thread.sleep(500); // Slight delay to let the popup disappear
+            System.out.println("❌ Popup dismissed");
+
+            // ✅ Click the checkbox span
+            wait.until(ExpectedConditions.elementToBeClickable(clickableSpan)).click();
+            System.out.println("✅ Air India filter applied");
+
+        } catch (Exception e) {
+            System.out.println("⚠️ Error during filtering: " + e.getMessage());
+        }
+    }
+}

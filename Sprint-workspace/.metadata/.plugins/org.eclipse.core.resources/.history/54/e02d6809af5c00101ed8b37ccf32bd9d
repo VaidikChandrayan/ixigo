@@ -1,0 +1,94 @@
+package com.pages;
+
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.InputEvent;
+import java.time.Duration;
+import java.util.List;
+import java.util.concurrent.TimeoutException;
+
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class FlightNegativeDataPage extends BasePage {
+	
+	
+	
+
+	public FlightNegativeDataPage(WebDriver driver) {
+		super(driver);
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+		
+	}
+	
+
+	
+	public void SameCity() {
+	    Actions actions = new Actions(driver);
+	    FromOneWay.click();
+	    actions.sendKeys(prop.getProperty("FromCity")).pause(Duration.ofSeconds(1)).perform();
+
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebElement sugg = wait.until(ExpectedConditions.elementToBeClickable(puneOption));
+	    sugg.click();
+	}
+
+	public void ToSameCity() throws AWTException {
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+	    WebElement toInput = wait.until(ExpectedConditions.elementToBeClickable(
+	        By.xpath("//span[contains(text(),'To')]/following::input[1]")));
+	    toInput.click();
+	    toInput.sendKeys("PNQ-Pune");
+
+	    try {
+			Thread.sleep(1500);
+		} catch (InterruptedException e) {
+	
+			e.printStackTrace();
+		} // Let dropdown render
+
+	    Robot robot = new Robot();
+	    Point location = toInput.getLocation();
+	    int x = location.getX();
+	    int y = location.getY();
+
+	    robot.mouseMove(x + 50, y + 50); // Offset to land inside suggestion box
+	    robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+	    robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+
+	    try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} // Wait for field to clear
+
+	    ((JavascriptExecutor) driver).executeScript("arguments[0].blur();", toInput);
+	}
+
+	public void CheckAssert() throws TimeoutException {
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+	    WebElement toInput = driver.findElement(By.xpath("//span[contains(text(),'To')]/following::input[1]"));
+
+	    // Wait until the field is cleared
+		wait.until(driver -> {
+		    String value = toInput.getAttribute("value");
+		    System.out.println("Waiting... Current 'To' field value: " + value);
+		    return value.isEmpty();
+		});
+
+		String actualValue = toInput.getAttribute("value");
+		System.out.println("Final 'To' field value: " + actualValue);
+		Assert.assertEquals(actualValue, "", "Expected 'To' field to be cleared after selecting duplicate city.");
+	}
+}

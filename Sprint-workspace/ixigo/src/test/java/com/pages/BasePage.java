@@ -21,16 +21,18 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class BasePage {
 	WebDriver driver;
 	Properties prop;
+	WebDriverWait wait;
 	
 	@FindBy(xpath="//span[contains(@class, 'absolute') and contains(@class, 'top-20') and contains(text(), 'From')]")
-		WebElement FromOneWay;
+
+	WebElement FromOneWay;
 	
-	@FindBy(xpath="//span[contains(text(),'Pune')]")
+	@FindBy(xpath="//p[contains(text(),\"Pune International Airport\")]")
 	WebElement puneOption;
 	
 	@FindBy(xpath="//span[contains(text(),'To')]/following::input[1]")
      WebElement ToOneWay;
-	////span[contains(@class, 'absolute') and contains(@class, 'top-20') and contains(text(), 'To')]
+	
 	
 	@FindBy(xpath="//p[contains(text(),'Delhi Indira Gandhi International Airport')]")
 	WebElement delhiOption;
@@ -38,6 +40,8 @@ public class BasePage {
 	@FindBy(xpath="//button[normalize-space()='Search']")
 	WebElement searchButton;
 	
+	@FindBy(xpath="//input[@type='checkbox' and @value='AI']")
+	WebElement airIndiaCheckbox;
 	
 	
 	
@@ -58,6 +62,13 @@ public class BasePage {
             e.printStackTrace();
         }
     }
+	  public void waitUntilWebElementIsClickable(WebElement element) {
+	        wait.until(ExpectedConditions.elementToBeClickable(element));
+	    }
+	 
+	    public void waitUntilVisible(WebElement element) {
+	        wait.until(ExpectedConditions.visibilityOf(element));
+	    }
 	
 
 	public void fromData()

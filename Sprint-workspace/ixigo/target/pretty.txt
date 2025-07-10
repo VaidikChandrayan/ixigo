@@ -1,0 +1,9 @@
+
+@errorcheck
+Scenario: Validate error when same city is entered in From and To field [90m# src/test/resource/Features/Flight.feature:27[0m
+  [32mGiven [0m[32mUser is logged into Ixigo application[0m                           [90m# com.stepDefinition.FlightTest.user_is_logged_into_ixigo_application()[0m
+  [32mAnd [0m[32mUser is on the flight search page[0m                                 [90m# com.stepDefinition.FlightTest.user_is_on_the_flight_search_page()[0m
+  [32mWhen [0m[32mUser enters same city in From Field[0m                              [90m# com.stepDefinition.FlightTest.user_enters_same_city_in_from_field()[0m
+  [32mAnd [0m[32mUser enters same city in To Field[0m                                 [90m# com.stepDefinition.FlightTest.user_enters_same_city_in_to_field()[0m
+  [32mAnd [0m[32mUser click on Search for invalid data[0m                             [90m# com.stepDefinition.FlightTest.user_click_on_search_for_invalid_data()[0m
+  [32mThen [0m[32mUser should see error message[0m                                    [90m# com.stepDefinition.FlightTest.user_should_see_error_message()[0m

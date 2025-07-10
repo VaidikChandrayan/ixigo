@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="TestRunnerjunit" project="ixigo" tests="1" started="1" failures="0" errors="1" ignored="0">
+  <testsuite name="com.runner.TestRunnerjunit" time="0.418">
+    <testsuite name="Ixigo Flight Search Module" time="0.418">
+      <testcase name="User applies airline filter" classname="Ixigo Flight Search Module" time="0.418">
+        <error>java.lang.NullPointerException: Cannot invoke "org.openqa.selenium.TakesScreenshot.getScreenshotAs(org.openqa.selenium.OutputType)" because "this.driver" is null&#13;
+	at com.stepDefinition.FlightTest.tearDown(FlightTest.java:196)&#13;
+&#13;
+</error>
+      </testcase>
+    </testsuite>
+  </testsuite>
+</testrun>

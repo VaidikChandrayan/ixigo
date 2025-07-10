@@ -1,0 +1,48 @@
+package com.parameters;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class ExcelReader {
+	
+	
+	
+	public String[] loginReader(String s) throws IOException {
+        String path = "C:\\Sprint-workspace\\ixigo\\src\\test\\resource\\Exceldata\\Data.xlsx";
+        String[] cred = new String[2];
+
+        try (FileInputStream fis = new FileInputStream(new File(path));
+             Workbook workbook = new XSSFWorkbook(fis)) {
+
+            Sheet sheet = workbook.getSheetAt(0);
+            Row row = sheet.getRow(1); // Second row (index starts at 0)
+
+            if (row == null) {
+                throw new IllegalArgumentException("Row 1 is missing in the Excel sheet.");
+            }
+
+            Cell cell0 = row.getCell(0);
+            Cell cell1 = row.getCell(1);
+
+            if (cell0 == null || cell1 == null) {
+                throw new IllegalArgumentException("One or both cells are missing in row 1.");
+            }
+
+            cred[0] = cell0.getStringCellValue();
+            cred[1] = cell1.getStringCellValue();
+        }
+
+        return cred;
+    }
+
+
+   }
+ 
+

@@ -1,0 +1,28 @@
+package com.pages;
+
+import java.util.Set;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class FilterDataPage {
+	 WebDriver driver = new ChromeDriver();
+
+   public void filter() {
+	   
+	   String original = driver.getWindowHandle();
+	   Set<String> allWindows = driver.getWindowHandles();
+	   
+	   for (String windowHandle: allWindows)
+	   { if (!windowHandle.equals(original)) {
+	    
+	   driver.switchTo().window(windowHandle);
+	   break;
+	   }
+	 }
+	   
+   }
+    
+	
+	
+}

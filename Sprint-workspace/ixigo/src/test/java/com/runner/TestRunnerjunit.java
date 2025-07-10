@@ -7,8 +7,9 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features="C:\\Sprint-workspace\\ixigo\\src\\test\\resource\\Features\\Flight.feature", 
-				  glue="com.stepDefinition",tags = "@errorcheck")
+				  glue="com.stepDefinition" ,tags="@oneway")
 
 public class TestRunnerjunit {
+	
 
 }

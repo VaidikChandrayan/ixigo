@@ -1,0 +1,49 @@
+package com.pages;
+
+import java.util.Set;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class FilterDataPage extends BasePage{
+	 public FilterDataPage(WebDriver driver) {
+		super(driver);
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+		WebDriverWait wait;
+
+		@FindBy(xpath="//input[@type='checkbox' and @value='AI']")
+		WebElement airIndiaCheckbox;
+		
+		
+	  
+
+
+
+	}
+
+
+   public void filter() {
+	   
+	   String original = driver.getWindowHandle();
+	   Set<String> allWindows = driver.getWindowHandles();
+	   
+	   for (String windowHandle: allWindows)
+	   { if (!windowHandle.equals(original)) {
+	    
+	   driver.switchTo().window(windowHandle);
+	   break;
+	   }
+	 }
+	   
+	   
+	   
+   }
+    
+	
+	
+}

@@ -1,0 +1,14 @@
+package com.pages;
+
+
+public class FilterDataPage {
+	
+	
+   public void filter() {
+	   
+	   
+   }
+    
+	
+	
+}

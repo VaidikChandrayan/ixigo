@@ -1,0 +1,21 @@
+package com.pages;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
+
+public class PartialTextDataPage extends BasePage {
+
+	public PartialTextDataPage(WebDriver driver) {
+		super(driver);
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
+	
+	public void enterPartialText(String from,String to) 
+	{
+		
+	}
+	
+	
+
+}

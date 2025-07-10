@@ -1,0 +1,13 @@
+package com.runner;
+
+import io.cucumber.testng.CucumberOptions;
+
+
+@CucumberOptions(features="src\\test\\resource\\Features\\Flight.feature",
+glue= {"com.stepDefinition"},
+tags="@oneway"
+)
+
+public class TestRunnerTestNG {
+
+}

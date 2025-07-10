@@ -1,10 +1,21 @@
 package com.setup;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.util.Date;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -42,6 +53,20 @@ public class BaseSteps {
 		  return driver;
 	}
 	
+//	public String takeScreenshot(String prefix) {
+//		try {
+//			TakesScreenshot ts = (TakesScreenshot) driver;
+//			File src = ts.getScreenshotAs(OutputType.FILE);
+//			String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+//			String fileName = prefix + "_" + timestamp + ".png";
+//			File dest = new File("screenshots/" + fileName);
+//			FileUtils.copyFile(src, dest);
+//			return dest.getAbsolutePath();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//			return null;
+//		}
+//	}
 	
 	
 	
