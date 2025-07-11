@@ -1,0 +1,18 @@
+package com.runner;
+
+import org.testng.annotations.DataProvider;
+
+import io.cucumber.testng.CucumberOptions;
+
+@CucumberOptions(features="src\\test\\resource\\Features\\Train.feature",
+
+glue="com.stepdefinition")
+ 
+public class TestRunnerParallel {
+	@Override
+	@DataProvider(parallel = true)
+	public object[][] scenarios()
+	{
+		return super.s
+	}
+}

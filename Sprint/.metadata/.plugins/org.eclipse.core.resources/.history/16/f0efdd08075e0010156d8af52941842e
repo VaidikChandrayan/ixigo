@@ -1,0 +1,19 @@
+package com.runner;
+
+@CucumberOptions(features="C:\\Users\\TRTHORAT\\OneDrive - Capgemini\\Desktop\\Sprint\\MagicBricsMbAdviceTesting\\src\\test\\resource\\Features\\MbAdviceScenario.feature",
+
+glue="com.stepdefinition")
+ 
+public class TestRunnerParallel {
+	
+	@Override
+	 
+	@DataProvider(parallel=true)
+ 
+	public Object[][] scenarios() {
+ 
+		// TODO Auto-generated method stub
+ 
+		return super.scenarios();
+
+}

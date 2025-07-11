@@ -4,7 +4,7 @@ import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(features = "src\\test\\resource\\Features\\Train.feature",
 glue= {"com.stepDefinition"},
-tags="@errorCheck",
+//tags="@valid",
 plugin = {
         "pretty",
         "html:target/CucumberReport2.html",           // HTML report

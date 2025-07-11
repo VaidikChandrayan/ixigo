@@ -1,0 +1,230 @@
+package com.stepDefinition;
+
+
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+
+import com.pages.TrainAvailabilityPage;
+import com.pages.TrainFilterPage;
+import com.pages.TrainInvalidData;
+import com.pages.TrainSameSourceDestinationPage;
+import com.pages.TrainSwapPage;
+import com.pages.TrainValidDataPage;
+import com.parameters.ExcelReader;
+import com.setup.BaseSteps;
+
+import io.cucumber.datatable.DataTable;
+import io.cucumber.java.AfterStep;
+import io.cucumber.java.Scenario;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+public class TrainTest {
+	
+	WebDriver driver;
+	TrainValidDataPage validDataPage;
+	TrainSameSourceDestinationPage trainsameFromTopage;
+	TrainAvailabilityPage trainavailibilitypage;
+	TrainFilterPage trainfilterpage;
+	TrainSwapPage trainswappage;
+	TrainInvalidData traininvalidpage;
+	
+//-------------------------------------------Background----------------------------------------------------	
+	
+	@Given("User is on the train search page")
+	public void user_is_on_the_train_search_page() {
+		driver = BaseSteps.edgedriver();
+	}
+	
+//---------------------------------------------------------Scenario 1---------------------------------------
+	
+		/* created by: Pooja Kadam
+		 * Reviewed By:
+		 * Motive:  Validate correct train list appears for valid stations
+		 *
+		 * *
+		 */
+	
+	@When("User enters data in From field and enters data in To field")
+	public void user_enters_data_in_from_field_and_enters_data_in_to_field() {
+		validDataPage = new TrainValidDataPage(driver);
+				
+		validDataPage.fromToData();
+	   
+	}
+	@When("User selects date")
+	public void user_selects_date() {
+		validDataPage.selctDate();
+	}
+	@When("User clicks on Search for valid data")
+	public void user_clicks_on_search_for_valid_data() {
+		validDataPage.clickSearch();
+	}
+	@Then("Train list should display according to From, To and on selected date")
+	public void train_list_should_display_according_to_from_to_and_on_selected_date() {
+		validDataPage.assertValidData();
+	}
+
+//---------------------------------------------------------Scenario 2-------------------------------------------
+	
+			/* created by: Pooja Kadam
+			 * Reviewed By:
+			 * Motive: Validate error when same station is entered in From and To field
+			 *
+			 * *
+			 */
+
+	@When("User enters data in From and To feilds")
+	public void user_enters_data_in_from_and_to_feilds() {
+		trainsameFromTopage = new TrainSameSourceDestinationPage(driver);
+		
+		trainsameFromTopage.invalidFromanTo();
+		trainsameFromTopage.selctDate();
+	    
+	}
+	@When("User clicks on Search for invalid data")
+	public void user_clicks_on_search_for_invalid_data() {
+		trainsameFromTopage.selctSearch();
+	}
+	@Then("User should see error message")
+	public void user_should_see_error_message() {
+		trainsameFromTopage.assertSameData();
+	}
+	
+//---------------------------------------------------------Scenario 3-------------------------------------------
+	
+	/* created by: Pooja Kadam
+	 * Reviewed By:
+	 * Motive: User checks seat availability after searching trains
+	 *
+	 * *
+	 */	
+
+	@When("the user enters data in source and in destination with date")
+	public void the_user_enters_data_in_source_and_in_destination_with_date() {
+		trainavailibilitypage = new TrainAvailabilityPage(driver);
+		
+		trainavailibilitypage.fromToData();
+		trainavailibilitypage.selctDate();
+	   
+	}
+	@When("clicks the search button")
+	public void clicks_the_search_button() {
+		trainavailibilitypage.clickSearch();
+	}
+	@When("clicks Show Availability for the first train")
+	public void clicks_show_availability_for_the_first_train() {
+		trainavailibilitypage.clickFirstAvailability();
+	}
+	@Then("seat availability details should be displayed")
+	public void seat_availability_details_should_be_displayed() {
+		trainavailibilitypage.verifyAvailability();
+	}
+
+//---------------------------------------------------------Scenario 4-------------------------------------------
+	
+		/* created by: Pooja Kadam
+		 * Reviewed By:
+		 * Motive:
+		 *
+		 * *
+		 */	
+
+	@When("User enters source and destination with date and clicks on search")
+	public void user_enters_source_and_destination_with_date_and_clicks_on_search() {
+		trainfilterpage = new TrainFilterPage(driver);
+		
+		trainfilterpage.fromToData();
+		trainfilterpage.selctDate();
+		trainfilterpage.clickSearch();
+	    
+	}
+	@When("User clicks on quota and class filter")
+	public void user_clicks_on_quota_and_class_filter(DataTable dataTable) {
+		
+		//trainfilterpage.clickFilter(dataTable);
+		trainfilterpage.clickFilter(dataTable);
+	    
+	}
+	@Then("Only trains matching quota and class should be displayed")
+	public void only_trains_matching_quota_and_class_should_be_displayed() {
+		
+		trainfilterpage.clickFirstAvailability();
+		trainfilterpage.verifyAvailability();
+	   
+	}
+
+
+//---------------------------------------------------------Scenario 5-------------------------------------------
+	
+			/* created by: Pooja Kadam
+			 * Reviewed By:
+			 * Motive:
+			 *
+			 * *
+			 */	
+	
+	@When("User enters valid source and destination and selects travel date")
+	public void user_enters_valid_source_and_destination_and_selects_travel_date() {
+		
+		trainswappage = new TrainSwapPage(driver);
+		trainswappage.fromToData();
+		trainswappage.selctDate();
+	   
+	}
+	@When("User clicks on swap button")
+	public void user_clicks_on_swap_button() {
+		trainswappage.clickSwap();
+	    
+	}
+	@Then("It should swap the source and destination")
+	public void it_should_swap_the_source_and_destination() {
+		trainswappage.verifySwapHappened();
+	    
+	}
+	@AfterStep
+	public void tearDown(Scenario scenario) // wil take screenshots for each and every scenario
+	{
+		final byte[] screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+		scenario.attach(screenshot, "image/png", "Image");
+		
+	}
+	
+	
+//-------------------------------------------------- -------Scenario 6-------------------------------------------
+	
+	/* created by: Pooja Kadam
+	 * Reviewed By:
+	 * Motive:
+	 *
+	 * *
+	 */		
+	
+	@When("User enter station details from sheet {int} row {int}")
+	public void user_enter_station_details_from_sheet_row(Integer sheetIndex, Integer rowIndex) {
+		
+		traininvalidpage = new TrainInvalidData(driver);
+		
+		String from = ExcelReader.getCellData(sheetIndex, rowIndex, 0);
+        String to = ExcelReader.getCellData(sheetIndex, rowIndex, 1);
+		traininvalidpage.enterStationDetails(from, to);
+	   
+	}
+	@When("User clicks search")
+	public void user_clicks_search() {
+		traininvalidpage.clickSearch();
+	    
+	}
+	@Then("error message should is display on screen")
+	public void error_message_should_is_display_on_screen() {
+		
+		traininvalidpage.assertScreenShot();
+	}
+
+
+
+
+
+}

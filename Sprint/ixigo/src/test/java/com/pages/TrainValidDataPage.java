@@ -21,9 +21,14 @@ public class TrainValidDataPage extends BasePage{
 	{
 		wait.until(ExpectedConditions.elementToBeClickable(FromValid)).click();
 		
+		
 		FromValid.sendKeys(prop.getProperty("FromValid"));
-//		 Actions actions = new Actions(driver);
-//		 actions.moveToElement(FromValid).click().sendKeys("Pune").pause(Duration.ofMillis(500)).perform();
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	   wait.until(ExpectedConditions.elementToBeClickable(suggPune)).click();
 	    

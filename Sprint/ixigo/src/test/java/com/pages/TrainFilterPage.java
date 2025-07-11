@@ -63,9 +63,6 @@ public class TrainFilterPage extends BasePage{
 		int qoutaCol = Integer.parseInt(data.get(0).get("quotaCol"));
 		int classCol = Integer.parseInt(data.get(0).get("classCol"));
 		
-//		System.out.println("row: "+(data.get(0).get("row")));
-//		System.out.println("qouta: "+(data.get(0).get("quotaCol")));
-//		System.out.println("class: "+(data.get(0).get("classCol")));
 		
 		String qoutaValue = reader.getCellData(row, qoutaCol).trim();
 		String classValue = reader.getCellData(row, classCol).trim();

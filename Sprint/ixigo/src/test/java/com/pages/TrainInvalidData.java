@@ -26,6 +26,8 @@ public class TrainInvalidData extends BasePage{
 	
 	 @FindBy(xpath = "//div[contains(text(),\"There seems to be no matching station\")]")
 	 WebElement errorMsg;
+	 
+	 
 	public void enterStationDetails(String from, String to) {
 		
 			FromValid.click();
@@ -42,9 +44,6 @@ public class TrainInvalidData extends BasePage{
 		try {
 			wait.until(ExpectedConditions.visibilityOf(errorMsg));
 		String actualText = errorMsg.getText().trim();
-//		String expected = prop.getProperty("errorMsg");
-//		
-//		Assert.assertEquals(expected, actualText,"Error Message not Displayed");
 			Assert.assertTrue(actualText.contains("There seems to be no matching station"),
 				    "Expected error message not found");
 

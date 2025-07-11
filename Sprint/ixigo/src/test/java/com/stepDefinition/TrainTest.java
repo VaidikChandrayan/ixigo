@@ -40,9 +40,9 @@ public class TrainTest {
 	
 //---------------------------------------------------------Scenario 1---------------------------------------
 	
-		/* created by:
+		/* created by: Pooja Kadam
 		 * Reviewed By:
-		 * Motive:
+		 * Motive:  Validate correct train list appears for valid stations
 		 *
 		 * *
 		 */
@@ -69,9 +69,9 @@ public class TrainTest {
 
 //---------------------------------------------------------Scenario 2-------------------------------------------
 	
-			/* created by:
+			/* created by: Pooja Kadam
 			 * Reviewed By:
-			 * Motive:
+			 * Motive: Validate error when same station is entered in From and To field
 			 *
 			 * *
 			 */
@@ -95,9 +95,9 @@ public class TrainTest {
 	
 //---------------------------------------------------------Scenario 3-------------------------------------------
 	
-	/* created by:
+	/* created by: Pooja Kadam
 	 * Reviewed By:
-	 * Motive:
+	 * Motive: User checks seat availability after searching trains
 	 *
 	 * *
 	 */	
@@ -125,9 +125,9 @@ public class TrainTest {
 
 //---------------------------------------------------------Scenario 4-------------------------------------------
 	
-		/* created by:
+		/* created by: Pooja Kadam
 		 * Reviewed By:
-		 * Motive:
+		 * Motive: User applies quota and class filter
 		 *
 		 * *
 		 */	
@@ -159,9 +159,9 @@ public class TrainTest {
 
 //---------------------------------------------------------Scenario 5-------------------------------------------
 	
-			/* created by:
+			/* created by: Pooja Kadam
 			 * Reviewed By:
-			 * Motive:
+			 * Motive: Verify swapping source and destination in train search
 			 *
 			 * *
 			 */	
@@ -193,11 +193,11 @@ public class TrainTest {
 	}
 	
 	
-//---------------------------------------------------------Scenario 6-------------------------------------------
+//-------------------------------------------------- -------Scenario 6-------------------------------------------
 	
-	/* created by:
+	/* created by: Pooja Kadam
 	 * Reviewed By:
-	 * Motive:
+	 * Motive: Search train with invalid station input
 	 *
 	 * *
 	 */		
