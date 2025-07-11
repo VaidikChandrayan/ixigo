@@ -1,7 +1,6 @@
 package com.stepDefinition;
 
 import com.pages.HotelBookingPage;
-import com.pages.HotelsPage;
 import com.pages.SearchPage;
 
 import io.cucumber.java.AfterStep;
@@ -13,20 +12,18 @@ import org.junit.Assert;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import com.setup.BaseSteps; // <- adjust if your driver helper class differs
+import com.setup.BaseSteps; 
 import com.utils.ExcelReader;
 import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
 
 public class HotelsTest {
-
+	
 	private final WebDriver driver;
-	private final HotelsPage hotelsPage;
 	private final SearchPage searchPage;
 	private final HotelBookingPage bookingPage;
 
 	public HotelsTest() {
 		driver = BaseSteps.launchChrome(); // get shared WebDriver
-		hotelsPage = new HotelsPage(driver);
 		searchPage = new SearchPage(driver);
 		bookingPage = new HotelBookingPage(driver);
 	}
@@ -53,7 +50,6 @@ public class HotelsTest {
 
 	@Then("user should be on the Hotels page")
 	public void verify_hotels_page() {
-		// Assert.assertTrue(" Not on Hotels page!", hotelsPage.isHotelsTabSelected());
 		System.out.println("User landed on Hotels page.");
 	}
 
@@ -64,11 +60,11 @@ public class HotelsTest {
 	
 	
 	
-	@Given("user is on the Hotels page")
+@Given("user is on the Hotels page")
 	public void user_is_on_hotels_page() {
-		//searchPage.loadHomePage();
-		//searchPage.handleInitialPopUp();
-		//searchPage.clickHotelsTab();
+//		searchPage.loadHomePage();
+//		searchPage.handleInitialPopUp();
+//		searchPage.clickHotelsTab();
 	}
 
 	
@@ -108,8 +104,6 @@ public class HotelsTest {
 
 	@Then("user should see the hotel search results")
 	public void user_should_see_search_results() {
-		// Assert.assertTrue("Hotels results page not displayed",
-		// hotelsPage.isHotelsTabSelected());
 		System.out.println("Hotel results displayed successfully");
 	}
 	
@@ -142,7 +136,7 @@ public class HotelsTest {
 	    	try {
 	            String path = "C:\\Windows.old\\Windows\\System32\\config\\systemprofile\\eclipse-workspace\\My_Project\\IxigoTest\\src\\test\\resources\\ExcelData\\Data.xlsx";
 	            String area = ExcelReader.readExcelCell(path, "Sheet1", row, col);
-	            bookingPage.enterAreaName(area);  // Assumes method exists in your HotelBookingPage
+	            bookingPage.enterAreaName(area);  
 	        } catch (Exception e) {
 	            System.out.println("Could not read area from Excel: " + e.getMessage());
 	        }
@@ -156,7 +150,6 @@ public class HotelsTest {
 	 
 	    @Then("hotel results should update based on the selected sort and area")
 	    public void verify_results_updated_area_sort() {
-	        // You can add waits/assertions here
 	        System.out.println("Area and sort applied.");
 	    }
 	 
@@ -172,7 +165,7 @@ public class HotelsTest {
 	 
 	    @Then("hotel results should update based on selected filter")
 	    public void verify_results_updated_after_filter() {
-	        System.out.println("✅ First filter applied.");
+	        System.out.println("First filter applied.");
 	    }
 	 
 	    @When("user scrolls back to the Most Popular filter section")
@@ -242,7 +235,7 @@ public class HotelsTest {
 	public void user_performed_hotel_search_and_viewing_results() {
 		
 		System.out.println("User is on page");
-		bookingPage.loadHomePage(); // Optional if already loaded
+		bookingPage.loadHomePage(); 
 		
 	}
 
@@ -255,32 +248,32 @@ public class HotelsTest {
 	public void verify_redirection_to_reservation_page() {
 	    Assert.assertTrue("User not redirected to reservation page", bookingPage.isOnReservationPage());
 	}
-	 
 	
 
 	//====================================Scenario 6 (Negative)========================================
 
 	
-	/*@Given("user is on the Hotels page") 
+/* @Given("user is on the Hotels page") 
 	 public void user_is_on_hotels_page() {
 		 searchPage.loadHomePage();
 		 searchPage.handleInitialPopUp();
 		 searchPage.clickHotelsTab(); 
-		 searchPage.enterDestination("Goa");
-		 searchPage.selectDestinationSuggestion(); }
+//		 searchPage.enterDestination("Goa");
+//		 searchPage.selectDestinationSuggestion(); 
+		 }
 	 
-	 @When("user selects today as the check-in date") public void
-	 user_selects_today_as_checkin() { 
+	 @When("user selects today as the check-in date") 
+	 public void user_selects_today_as_checkin() { 
 		 bookingPage.selectTodayAsCheckInDate(); 
 		 }
 	 
-	 @And("user selects the same date as the check-out date") public void
-	 user_selects_same_date_checkout() { 
+	 @And("user selects the same date as the check-out date") 
+	 public void user_selects_same_date_checkout() { 
 		 bookingPage.selectSameDateAsCheckOut(); 
 		 }
 	 
-	 @Then("check-out date should not be accepted") public void
-	 verify_checkout_date_not_accepted() { 
+	 @Then("check-out date should not be accepted") 
+	 public void verify_checkout_date_not_accepted() { 
 		 bookingPage.takesscreen(); 
 		 }*/
 	

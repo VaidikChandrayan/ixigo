@@ -25,7 +25,7 @@ public class SearchPage extends BasePage {
 	@FindBy(css = "button[aria-label='Close']") //pop-up close
 	private WebElement popUpClose;
 
-	@FindBy(xpath = "//*[@id=\"__next\"]/div/div[1]/div/div[1]/div/div/a[3]/p")
+	@FindBy(xpath = "/html/body/main/div[2]/div[1]/div[2]/div/ul/li[2]/a/p")
 	private WebElement hotelsTab;
 
 	@FindBy(xpath = "/html/body/main/div[4]/div[2]/div/div[1]/div[1]/div[1]/input")
@@ -50,7 +50,7 @@ public class SearchPage extends BasePage {
 		this.driver = driver;
 		this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 		this.js = (JavascriptExecutor) driver;
-		//PageFactory.initElements(driver, this);
+		PageFactory.initElements(driver, this);
 	}
 
 	
@@ -68,10 +68,10 @@ public class SearchPage extends BasePage {
 		}
 	}
 
-	// When – handle the promo pop-up 
+	// handle the pop-up 
 	public void handleInitialPopUp() {
 		try {
-			WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(10)); // shorter wait
+			WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(10)); 
 			WebElement closeBtn = shortWait.until(ExpectedConditions
 					.elementToBeClickable(By.cssSelector("button[aria-label='Close'], ixi-icons-close, .close")));
 			closeBtn.click();
@@ -99,13 +99,13 @@ public class SearchPage extends BasePage {
 		}
 	}
 
-	// click the “Hotels” tab in navbar
+	// click the Hotels tab 
 	public void clickHotelsTab() {
 		wait.until(ExpectedConditions.elementToBeClickable(hotelsTab)).click();
 		System.out.println("Hotels tab clicked");
 	}
 
-	// Then – quick URL/title validation
+	// Then quick URL/title validation
 	public boolean isOnHotelsPage() {
 		return driver.getCurrentUrl().contains("/hotels") || driver.getTitle().toLowerCase().contains("hotel");
 	}
@@ -127,8 +127,8 @@ public class SearchPage extends BasePage {
 			destinationInput.sendKeys(Keys.DELETE); // Clear
 			destinationInput.sendKeys(place); // Enter new destination
 
-			Thread.sleep(1000); // Allow suggestions to load
-
+			Thread.sleep(1000); 
+			
 			System.out.println("Entered destination: " + place);
 		} catch (Exception e) {
 			System.out.println("Failed to enter destination: " + e.getMessage());
@@ -150,9 +150,9 @@ public class SearchPage extends BasePage {
 	public void selectCheckInCheckOutDates() {
 		
 		WebElement checkIn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
-				"/html/body/main/div[4]/div[2]/div/div[2]/div[3]/div/div[1]/div/div[2]/div[1]/div/div/div[2]/button[12]")));
-		WebElement checkOut = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
 				"/html/body/main/div[4]/div[2]/div/div[2]/div[3]/div/div[1]/div/div[2]/div[1]/div/div/div[2]/button[13]")));
+		WebElement checkOut = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
+				"/html/body/main/div[4]/div[2]/div/div[2]/div[3]/div/div[1]/div/div[2]/div[1]/div/div/div[2]/button[15]")));
 		checkIn.click();
 		checkOut.click();
 	}

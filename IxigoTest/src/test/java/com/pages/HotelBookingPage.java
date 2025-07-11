@@ -369,20 +369,29 @@ public class HotelBookingPage extends BasePage {
 
 	
 	 public void selectTodayAsCheckInDate() {
-		 try { WebElement checkIn =
-	 wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/main/div[4]/div[2]/div/div[2]/div[3]/div/div[1]/div/div[2]/div[1]/div/div/div[2]/button[10]"))); checkIn.click();
-	  
-	 } catch (Exception e) { System.out.println("X Failed to select today: " +e.getMessage()); } }
+		 try { 
+			
+			
+			 WebElement date = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
+						"/html/body/main/div[4]/div[2]/div/div[2]/div[1]/div/input")));
+			 date.click();
+			 
+			 
+			 WebElement checkIn =
+	 wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/main/div[4]/div[2]/div/div[2]/div[3]/div/div[1]/div/div[2]/div[1]/div/div/div[2]/button[13]"))); 
+			 checkIn.click();
+			  
+	 } catch (Exception e) { System.out.println("Failed to select today: " +e.getMessage()); } }
 	 
 	  public void selectSameDateAsCheckOut() { 
 		  try {
 	  WebElement checkOut =
-	 wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/main/div[4]/div[2]/div/div[2]/div[3]/div/div[1]/div/div[2]/div[1]/div/div/div[2]/button[10]" )));
+	 wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/main/div[4]/div[2]/div/div[2]/div[3]/div/div[1]/div/div[2]/div[1]/div/div/div[2]/button[13]" )));
 	 
 	 checkOut.click(); 
 	 
 		  } catch (Exception e) {
-	 System.out.println("X Failed to select same check-out date: " +
+	 System.out.println("Failed to select same check-out date: " +
 	 e.getMessage()); } }
 	
 	 

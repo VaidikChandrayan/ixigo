@@ -1,13 +1,15 @@
 Feature: Ixigo Hotels Module
  
-  @log1
-  Scenario: User opens ixigo site and navigates to Hotels section
+  @launchSite
+ Scenario: User opens ixigo site and navigates to Hotels section
     Given user launches the ixigo hotels website
     When user handles the initial popup
     And user clicks on the Hotels tab
     Then user should be on the Hotels page
     
-  @log2
+   
+    
+  @SerachHotels
 Scenario Outline: User fills the hotel search form and clicks Search
   Given user is on the Hotels page
   When user enters the destination from Excel using row <row> and column <col>
@@ -24,7 +26,7 @@ Examples:
   
  
   
-  @log3
+  @SortAndFilter
 Scenario Outline: User sorts hotels, enters area from Excel, and applies multiple Most Popular filters
   Given user is on the hotel search results page
   When user opens the Popularity sort dropdown
@@ -45,7 +47,7 @@ Examples:
   
   
   
-  @log4
+  @filterTest
 Scenario: User applies filters from User Rating and Star Rating sections
   Given user has completed a hotel search and is viewing the results
   When user scrolls to the User Rating filter section
@@ -56,7 +58,7 @@ Scenario: User applies filters from User Rating and Star Rating sections
   Then hotel results should update based on both applied filters
   
   
-  @log5
+  @bookNowRedirect
 Scenario: Verify Book Now button redirects to the reservation page
   Given user has performed a hotel search and is viewing the search results
   When user clicks on the Book Now button of the first listed hotel
@@ -64,13 +66,13 @@ Scenario: Verify Book Now button redirects to the reservation page
 
 
 
-  #@log6
+  #@DateValidation
 #Scenario: User tries to select the same date for both check-in and check-out
-  #Given user is on the Hotels page
+  #Given user is on Hotels Page
   #When user selects today as the check-in date
   #And user selects the same date as the check-out date
   #Then check-out date should not be accepted
-
+#
 
 
 
