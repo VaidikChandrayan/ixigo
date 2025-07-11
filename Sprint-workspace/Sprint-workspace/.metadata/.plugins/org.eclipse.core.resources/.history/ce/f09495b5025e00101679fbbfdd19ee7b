@@ -1,0 +1,69 @@
+package com.pages;
+
+import java.time.Duration;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class SearchTripPage extends BasePage {
+
+    @FindBy(xpath = "//button[contains(text(),'One Way')]")
+    WebElement oneWayButton;
+
+    @FindBy(css = "abbr[aria-label='July 9, 2025']")
+    WebElement dateField;
+
+    @FindBy(css = "abbr[aria-label='July 10, 2025']")
+    WebElement dateClick;
+
+    @FindBy(xpath = "//button[contains(text(),'Round Trip')]")
+    WebElement roundTripButton;
+
+    public SearchTripPage(WebDriver driver) {
+        super(driver);
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
+
+    public void onewaySelect() {
+        oneWayButton.click();
+    }
+
+    public void roundTrip() {
+        roundTripButton.click();
+    }
+
+    public void selctDateOneway() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(dateField)).click();
+    }
+
+    public void selectDateRoundTrip() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(dateClick)).click();
+    }
+
+    public void switchToFlightResultTab() {
+        String originalTab = driver.getWindowHandle();
+
+        // Wait for new tab to appear
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(driver -> driver.getWindowHandles().size() > 1);   // Wait until a new browser tab is opened (i.e., when total tabs > 1) // This ensures that we only switch tabs after the flight result tab has successfully loaded
+        wait.until(driver -> driver.getWindowHandles().size() > 1);
+
+        Set<String> allTabs = driver.getWindowHandles();
+        for (String handle : allTabs) {
+            if (!handle.equals(originalTab)) {
+                driver.switchTo().window(handle);
+                System.out.println("Switched to flight results tab: " + driver.getCurrentUrl());
+                break;
+            }
+        }
+    }
+}

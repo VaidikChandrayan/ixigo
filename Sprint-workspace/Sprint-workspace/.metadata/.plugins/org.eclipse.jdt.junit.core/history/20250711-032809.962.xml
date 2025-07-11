@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="TestRunnerjunit" project="ixigo" tests="1" started="1" failures="0" errors="1" ignored="0">
+  <testsuite name="com.runner.TestRunnerjunit" time="8.769">
+    <testsuite name="Ixigo Flight Search Module" time="8.769">
+      <testcase name="Search one-way flight with valid details" classname="Ixigo Flight Search Module" time="8.769">
+        <error>io.cucumber.junit.UndefinedStepException: The step 'User is logged into Ixigo application' is undefined.
+You can implement this step using the snippet(s) below:
+
+@Given("User is logged into Ixigo application")
+public void user_is_logged_into_ixigo_application() {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+&#13;
+&#13;
+</error>
+      </testcase>
+    </testsuite>
+  </testsuite>
+</testrun>

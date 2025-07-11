@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="TestRunnerjunit" project="ixigo" tests="1" started="1" failures="0" errors="1" ignored="0">
+  <testsuite name="com.runner.TestRunnerjunit" time="0.46">
+    <testsuite name="Ixigo Flight Search Module" time="0.46">
+      <testcase name="User applies airline filter" classname="Ixigo Flight Search Module" time="0.46">
+        <error>java.lang.IllegalArgumentException: Driver must be set&#13;
+	at org.openqa.selenium.internal.Require.nonNull(Require.java:63)&#13;
+	at org.openqa.selenium.interactions.Actions.&lt;init&gt;(Actions.java:67)&#13;
+	at org.openqa.selenium.interactions.Actions.&lt;init&gt;(Actions.java:63)&#13;
+	at com.pages.BasePage.fromData(BasePage.java:76)&#13;
+	at com.stepDefinition.FlightTest.user_enters_source_and_destination_with_date_and_clicks_on_search(FlightTest.java:154)&#13;
+	at ✽.User enters source and destination with date and clicks on search(file:///C:/Sprint-workspace/ixigo/src/test/resource/Features/Flight.feature:35)&#13;
+&#13;
+</error>
+      </testcase>
+    </testsuite>
+  </testsuite>
+</testrun>

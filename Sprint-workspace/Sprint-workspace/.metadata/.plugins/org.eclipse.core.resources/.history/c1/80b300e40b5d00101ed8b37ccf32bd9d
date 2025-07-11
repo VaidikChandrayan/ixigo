@@ -1,0 +1,68 @@
+package com.pages;
+
+import java.time.Duration;
+import java.util.Set;
+
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.*;
+
+public class FilterDataPage extends BasePage {
+    WebDriver driver;
+    WebDriverWait wait;
+
+    public FilterDataPage(WebDriver driver) {
+        super(driver);
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    }
+
+    public void filter() {
+        // 🔄 Switch to newly opened tab
+        String originalWindow = driver.getWindowHandle();
+        Set<String> allWindows = driver.getWindowHandles();
+        for (String handle : allWindows) {
+            if (!handle.equals(originalWindow)) {
+                driver.switchTo().window(handle);
+                System.out.println("✅ Switched to tab: " + driver.getTitle());
+                break;
+            }
+        }
+
+        try {
+            // 📜 Scroll aggressively to bottom
+            ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
+            System.out.println("📜 Scrolled to bottom to expose filters");
+
+            // 🔍 Locate filter span element near Air India text
+            By clickableSpanLocator = By.xpath("//p[contains(text(),'Air India')]/ancestor::div[contains(@class,'flex')]//span[contains(@class,'inline-flex')]");
+            WebElement clickableSpan = wait.until(ExpectedConditions.presenceOfElementLocated(clickableSpanLocator));
+
+            // 🖱️ Scroll directly to element
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", clickableSpan);
+            System.out.println("🖱️ Scrolled to Air India filter");
+
+            // ❌ Attempt to dismiss popup
+            new Actions(driver).moveByOffset(0, 0).click().perform();
+            Thread.sleep(800);
+            System.out.println("❌ Clicked neutral area to dismiss popup");
+
+            // ☁️ Wait for modal to vanish if present
+            try {
+                By popupLocator = By.cssSelector(".shadow-500");
+                new WebDriverWait(driver, Duration.ofSeconds(5))
+                    .until(ExpectedConditions.invisibilityOfElementLocated(popupLocator));
+                System.out.println("☁️ Modal disappeared");
+            } catch (TimeoutException e) {
+                System.out.println("⚠️ Modal may still be visible, forcing filter click anyway");
+            }
+
+            // ✅ Apply filter via JS click to bypass overlay
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", clickableSpan);
+            System.out.println("✅ Air India filter applied via JavaScript");
+
+        } catch (Exception e) {
+            System.out.println("🚨 Error during filter application: " + e.getMessage());
+        }
+    }
+}

@@ -1,0 +1,60 @@
+package com.pages;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class PartialTextDataPage extends BasePage {
+	
+
+	public PartialTextDataPage(WebDriver driver) {
+		super(driver);
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
+	
+	@FindBy(xpath = "//p[@data-testid='originId' and contains(., 'From')]")
+	WebElement webfrom;
+	public void enterPartialText(String from,String to) 
+	{
+        
+         //wait.until(ExpectedConditions.elementToBeClickable(FromOneWay));
+		waitUntilVisible(webfrom);
+		webfrom.click();
+         webfrom.sendKeys(from);
+         
+         
+
+//        WebElement suggestion = wait.until(ExpectedConditions.elementToBeClickable(suggestionOption(partialCity)));
+//        suggestion.click();
+//        
+//        
+//        WebElement input = driver.findElement(fromInput);
+//        return input.getAttribute("value");
+//        
+//        WebElement input = driver.findElement(toInput);
+//        return input.getAttribute("value");
+    }
+
+//    public String getFromFieldValue() {
+//        WebElement input = driver.findElement(fromInput);
+//        return input.getAttribute("value");
+//    }
+//
+//    public String getToFieldValue() {
+//        WebElement input = driver.findElement(toInput);
+//        return input.getAttribute("value");
+//    }
+//	}
+	
+	
+
+}

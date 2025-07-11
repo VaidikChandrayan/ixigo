@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="TestRunnerjunit" project="ixigo" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testsuite name="com.runner.TestRunnerjunit" time="22.493">
+    <testsuite name="Ixigo Flight Search Module" time="22.493">
+      <testcase name="User applies airline filter" classname="Ixigo Flight Search Module" time="22.493"/>
+    </testsuite>
+  </testsuite>
+</testrun>

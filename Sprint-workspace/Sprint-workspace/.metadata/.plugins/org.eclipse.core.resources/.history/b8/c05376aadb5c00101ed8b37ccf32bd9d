@@ -1,0 +1,44 @@
+package com.pages;
+
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.InputEvent;
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class PartialTextDataPage extends BasePage {
+	
+
+	public PartialTextDataPage(WebDriver driver) {
+		super(driver);
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
+	
+	@FindBy(xpath = "//p[@data-testid='originId' and contains(., 'From')]")
+	WebElement webfrom;
+	public void enterPartialText(String from,String to) throws AWTException 
+	{
+        //150,350
+         //wait.until(ExpectedConditions.elementToBeClickable(FromOneWay));
+//		waitUntilVisible(webfrom);
+//		Robot robot = new Robot();
+//		robot.mouseMove(150,350); // Offset to land inside suggestion box
+//		robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+//		robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+        //webfrom.sendKeys(from);
+
+	
+	
+	
+	}
+}

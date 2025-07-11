@@ -1,0 +1,14 @@
+Feature: Ixigo Flight Search Module
+ 
+Background:
+     Given User is logged into Ixigo application
+     And User is on the flight search page
+
+@oneway
+Scenario: Search one-way flight with valid details
+When User selects "One-Way" trip
+And User enters "Pune" in the From field
+And User enters "Delhi" in the To field
+And User selects a future departure date
+And User clicks on Search flights
+Then User is redirected to result page with available flights  

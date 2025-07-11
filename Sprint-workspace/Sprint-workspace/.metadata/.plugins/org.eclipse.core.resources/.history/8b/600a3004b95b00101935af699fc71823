@@ -1,0 +1,62 @@
+package com.pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class SearchTripPage extends BasePage{
+
+	
+	
+
+
+	@FindBy(xpath="//button[contains (text(),\"One Way\")]")
+	WebElement oneWayButton;
+	
+	@FindBy(css="abbr[aria-label='July 8, 2025']")
+	WebElement dateField;
+	
+	@FindBy(css="abbr[aria-label='July 9, 2025']")
+	WebElement dateClick;
+	
+	@FindBy(xpath="button[contains(text(),'Round Trip')]")
+	WebElement roundTripButton;
+
+	public SearchTripPage(WebDriver driver) {
+		super(driver);
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
+	
+	
+	
+	public void onewaySelect() 
+	{
+		WebElement oneWayButton = driver.findElement(By.xpath("//button[contains (text(),\"One Way\")]"));
+				oneWayButton.click();
+	}
+	
+	public void roundTrip()
+	{
+		WebElement roundTripButton  = driver.findElement(By.xpath("//button[contains(text(),'Round Trip')]"));
+		roundTripButton.click();
+	}
+	
+	public void selctDate()
+    {
+	
+	    dateField.click();
+	    try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    dateClick.click();
+	    
+
+
+    }
+}

@@ -1,0 +1,100 @@
+package com.pages;
+
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.InputEvent;
+import java.io.FileInputStream;
+import java.time.Duration;
+import java.util.Properties;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class BasePage {
+	WebDriver driver;
+	Properties prop;
+	
+	@FindBy(xpath="//span[contains(@class, 'absolute') and contains(@class, 'top-20') and contains(text(), 'From')]")
+		WebElement FromOneWay;
+	
+	@FindBy(xpath="//span[contains(text(),'Pune')]")
+	WebElement puneOption;
+	
+	@FindBy(xpath="//span[contains(@class, 'absolute') and contains(@class, 'top-20') and contains(text(), 'To')]")
+     WebElement ToOneWay;
+	
+	@FindBy(xpath="//p[contains(text(),'Delhi Indira Gandhi International Airport')]")
+	WebElement delhiOption;
+	
+	@FindBy(xpath="//button[normalize-space()='Search']")
+	WebElement searchButton;
+	
+	
+	
+	
+	public BasePage(WebDriver driver)
+	{
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+		loadProperties();
+	}
+	private void loadProperties() {
+        try {
+            prop = new Properties();
+            FileInputStream fis = new FileInputStream("C:\\Sprint-workspace\\ixigo\\src\\test\\resource\\PropertieFiles\\FlightSearch.properties");
+            prop.load(fis);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+	
+
+	public void fromData()
+		{
+           Actions actions = new Actions(driver);
+	       FromOneWay.click();
+	    actions.sendKeys(prop.getProperty("FromCity")).pause(Duration.ofSeconds(1)).perform();
+
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebElement sugg = wait.until(ExpectedConditions.elementToBeClickable(puneOption));
+	    sugg.click();
+		}
+	
+	public void ToData()
+        {
+//		
+//		Actions actions = new Actions(driver);
+//	    ToOneWay.click();
+//
+//	    actions.sendKeys(prop.getProperty("ToCity")).pause(Duration.ofSeconds(1)).perform();
+//
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//	    
+		
+		 WebElement toInput = wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//span[contains(text(),'To')]/following::input[1]")));
+				toInput.sendKeys("DEL-Delhi");
+	    WebElement suggestion = wait.until(ExpectedConditions.elementToBeClickable(delhiOption));
+			    suggestion.click();
+				
+	   }
+	
+	
+	 public void clickSearch() 
+	 {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+      wait.until(ExpectedConditions.elementToBeClickable(searchButton));
+       searchButton.click();
+     
+     } 
+	
+	
+	
+}

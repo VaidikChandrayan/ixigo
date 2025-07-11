@@ -1,0 +1,88 @@
+package com.pages;
+
+import java.awt.*;
+import java.time.Duration;
+import java.util.Set;
+
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.*;
+
+public class FilterDataPage extends BasePage {
+    WebDriver driver;
+    WebDriverWait wait;
+
+    public FilterDataPage(WebDriver driver) {
+        super(driver);
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    }
+
+    public void filter() {
+        // 🔄 Step 1: Switch to newly opened tab
+        String originalWindow = driver.getWindowHandle();
+        Set<String> allWindows = driver.getWindowHandles();
+        for (String handle : allWindows) {
+            if (!handle.equals(originalWindow)) {
+                driver.switchTo().window(handle);
+                System.out.println("✅ Switched to tab: " + driver.getTitle());
+                break;
+            }
+        }
+
+        try {
+            // ⏳ Step 2: Wait until Air India filter is present in DOM
+            By airIndiaText = By.xpath("//p[contains(text(),'Air India')]");
+            wait.until(ExpectedConditions.presenceOfElementLocated(airIndiaText));
+            System.out.println("⏳ Results page loaded");
+
+            // 📜 Step 3: Progressive scroll to trigger lazy loading
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            for (int i = 0; i < 5; i++) {
+                js.executeScript("window.scrollBy(0, 400);");
+                Thread.sleep(500);
+            }
+            System.out.println("📜 Progressive scroll completed");
+
+            // 🧯 Step 4: Attempt to dismiss modal with ESC key
+            try {
+                Robot robot = new Robot();
+                robot.keyPress(KeyEvent.VK_ESCAPE);
+                robot.keyRelease(KeyEvent.VK_ESCAPE);
+                System.out.println("🧯 ESC key pressed to close modal");
+                Thread.sleep(1000);
+            } catch (AWTException e) {
+                System.out.println("⚠️ ESC key failed: " + e.getMessage());
+            }
+
+            // ☁️ Step 5: Wait for modal to disappear (if detectable)
+            try {
+                By modalLocator = By.cssSelector(".shadow-500");
+                new WebDriverWait(driver, Duration.ofSeconds(5))
+                    .until(ExpectedConditions.invisibilityOfElementLocated(modalLocator));
+                System.out.println("☁️ Modal disappeared");
+            } catch (TimeoutException te) {
+                System.out.println("⚠️ Modal may still be visible, continuing");
+            }
+
+            // 🎯 Step 6: Scroll filter element into center view
+            WebElement airIndiaElement = driver.findElement(airIndiaText);
+            js.executeScript(
+                "window.scrollTo(0, arguments[0].getBoundingClientRect().top + window.scrollY - 100);",
+                airIndiaElement
+            );
+            Thread.sleep(500);
+            System.out.println("🖱️ Air India element centered in view");
+
+            // ✅ Step 7: Select Air India filter using JS and trigger change event
+            String jsSelectAndTrigger =
+                "let cb = document.querySelector('input[type=\"checkbox\"][value=\"AI\"]');" +
+                "if(cb){ cb.checked = true; cb.dispatchEvent(new Event('change')); }";
+
+            js.executeScript(jsSelectAndTrigger);
+            System.out.println("✅ Air India checkbox selected via JavaScript");
+
+        } catch (Exception e) {
+            System.out.println("🚨 Error during filter(): " + e.getMessage());
+        }
+    }
+}

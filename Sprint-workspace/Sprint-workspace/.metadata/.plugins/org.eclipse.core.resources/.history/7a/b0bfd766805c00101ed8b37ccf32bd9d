@@ -1,0 +1,114 @@
+package com.pages;
+
+import java.time.Duration;
+import java.util.concurrent.TimeoutException;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class FlightNegativeDataPage extends BasePage {
+	
+	
+	
+
+	public FlightNegativeDataPage(WebDriver driver) {
+		super(driver);
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+		
+	}
+	
+	public void sameFrom()
+	{
+		    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+		    // Step 1: Activate the 'From' field
+		    wait.until(ExpectedConditions.elementToBeClickable(FromOneWay)).click();
+
+		    // Step 2: Locate and type into the input
+		    WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(
+		        By.xpath("//span[contains(text(),'From')]/following::input[1]")));
+		    //input.clear();
+		    input.sendKeys(prop.getProperty("FromCity"));  // e.g., "Pune"
+
+		    // Step 3: Wait for the suggestion to appear
+		    WebElement puneOption = wait.until(ExpectedConditions.presenceOfElementLocated(
+		        By.xpath("//span[contains(@class,'truncate') and contains(normalize-space(translate(., '\"', '')), 'Pune')]")));
+
+		    // Step 4: Select the option
+		    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", puneOption);
+
+		    // Step 5: Give the frontend time to absorb the input
+		    try {
+		        Thread.sleep(500);
+		    } catch (InterruptedException e) {
+		        Thread.currentThread().interrupt();
+		    }
+
+		    // Step 6: Blur input to avoid dropdown reopening
+		    ((JavascriptExecutor) driver).executeScript("arguments[0].blur();", input);
+		}
+
+
+         
+		
+	
+	public void sameTo() {
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+	    // Step 0: Ensure 'From' field is not actively focused to prevent dropdown flicker
+	    try {
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].blur();", FromOneWay);
+	    } catch (Exception e) {
+	        System.out.println("Could not blur 'From' field (may not be present or already blurred).");
+	    }
+
+	    // Step 1: Click the 'To' field to activate it
+	    //wait.until(ExpectedConditions.elementToBeClickable(ToOneWay)).click();
+	    new Actions(driver).moveToElement(ToOneWay).click().perform();
+
+	    // Step 2: Type the same city (e.g., Pune)
+	    WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(
+	        By.xpath("//span[contains(text(),'To')]/following::input[1]")));
+	    input.sendKeys(prop.getProperty("ToCitySame")); // For example, "Pune"
+	    
+	    try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+
+	    // Step 3: Select the suggestion from dropdown
+	    WebElement puneOption = wait.until(ExpectedConditions.elementToBeClickable(
+	        By.xpath("//*[contains(text(),'Pune') and contains(@class,'truncate')]")));
+	    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", puneOption);
+	    
+	 // Step 3: Wait for the suggestion to appear
+	    WebElement puneOption = wait.until(ExpectedConditions.presenceOfElementLocated(
+	        By.xpath("//span[contains(@class,'truncate') and contains(normalize-space(translate(., '\"', '')), 'Pune')]")));
+	    
+	 
+
+
+	    // Step 4: Select the option
+	    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", puneOption);
+
+	    // Step 4: Wait for specific validation message to appear
+	    WebElement errorMsg = wait.until(ExpectedConditions.visibilityOfElementLocated(
+	        By.xpath("//div[contains(text(),'Departure and arrival airports cannot be the same')]")));
+	    System.out.println("Validation message displayed: " + errorMsg.getText());
+
+	    // Step 5: Blur the input to finalize interaction and avoid reopening the dropdown
+	    ((JavascriptExecutor) driver).executeScript("arguments[0].blur();", input);
+	}
+
+
+}

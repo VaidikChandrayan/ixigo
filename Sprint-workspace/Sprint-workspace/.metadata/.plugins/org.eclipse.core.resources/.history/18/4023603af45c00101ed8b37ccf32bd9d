@@ -1,0 +1,212 @@
+package com.stepDefinition;
+
+import java.awt.AWTException;
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.TimeoutException;
+
+import org.junit.Assert;
+import org.openqa.selenium.WebDriver;
+
+import com.pages.BasePage;
+import com.pages.FlightNegativeDataPage;
+import com.pages.PartialTextDataPage;
+import com.pages.SearchTripPage;
+import com.parameters.ExcelReader;
+import com.setup.BaseSteps;
+
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+public class FlightTest {
+	WebDriver driver;
+	BasePage pg;
+	SearchTripPage st;
+	FlightNegativeDataPage nf;
+	PartialTextDataPage partialpage;
+	ExcelReader excel;
+//------------------------------------------Background-------------------------------------------------------
+	
+	@Given("User is logged into Ixigo application")
+	public void user_is_logged_into_ixigo_application() {
+		
+	    
+	}
+	@Given("User is on the flight search page")
+	public void user_is_on_the_flight_search_page() {
+	   driver=BaseSteps.chromedriver();
+	}
+	
+//------------------------------------Scenario 1------------------------------------------------------------------	
+	
+	@When("User selects one way trip")
+	public void user_selects_one_way_trip() {
+		pg = new BasePage(driver);
+		st = new SearchTripPage(driver);
+		st.onewaySelect();
+		
+		
+	    
+	}
+	@When("User enters city in the From field")
+	public void user_enters_city_in_the_from_field() {
+		pg.fromData();
+	    
+	}
+	@When("User enters city in the To field")
+	public void user_enters_city_in_the_to_field() {
+		pg.ToData();
+	    
+	}
+	@When("User selects a future departure date")
+	public void user_selects_a_future_departure_date() {
+	   st.selctDateOneway();
+	}
+	@When("User clicks on Search flights")
+	public void user_clicks_on_search_flights() {
+		pg.clickSearch();
+	   
+	}
+	@Then("User is redirected to result page with available flights")
+	public void user_is_redirected_to_result_page_with_available_flights() {
+	    
+	}
+	
+//------------------------------------Scenario 2------------------------------------------------------------------
+
+	
+	@When("User selects the round trip")
+	public void user_selects_the_round_trip() {
+		pg = new BasePage(driver);
+		st = new SearchTripPage(driver);
+		st.roundTrip();
+
+	}
+	@When("User enters city name in the From field")
+	public void user_enters_city_name_in_the_from_field() {
+		pg.fromData();
+	   
+	}
+	@When("User enters city name in the To field")
+	public void user_enters_city_name_in_the_to_field() {
+		pg.ToData();
+	   
+	}
+	@When("User selects a departure date")
+	public void user_selects_a_departure_date() {
+	  st.selctDateOneway();
+	}
+	@When("User selects a future return date")
+	public void user_selects_a_future_return_date() {
+	   st.selectDateRoundTrip();
+	}
+	@When("User clicks on the Search flights")
+	public void user_clicks_on_the_search_flights() {
+		pg.clickSearch();
+	    
+	}
+	@Then("User is redirected to result page with the available flights")
+	public void user_is_redirected_to_result_page_with_the_available_flights() {
+	  
+	}
+	
+//------------------------------------Scenario 3------------------------------------------------------------------
+	@When("User enters same city in From Field")
+	public void user_enters_same_city_in_from_field() {
+		pg = new BasePage(driver);
+		st = new SearchTripPage(driver);
+		nf = new FlightNegativeDataPage(driver);
+		nf.FromSameCity();    
+	}
+	@When("User enters same city in To Field")
+	public void user_enters_same_city_in_to_field() throws InterruptedException, AWTException {
+	    nf.ToSameCity();
+	}
+	@When("User click on Search for invalid data")
+	public void user_click_on_search_for_invalid_data() {
+	//	pg.clickSearch();
+		
+	    
+	}
+	@Then("User should see error message")
+	public void user_should_see_error_message() throws TimeoutException {
+		nf.CheckAssert();
+	    
+	}
+	
+//------------------------------------Scenario 4------------------------------------------------------------------
+	
+	
+	@When("User enters source and destination with date and clicks on search")
+	public void user_enters_source_and_destination_with_date_and_clicks_on_search() {
+		pg = new BasePage(driver);
+		st = new SearchTripPage(driver);
+		pg.fromData();
+		pg.ToData();
+		st.selctDateOneway();
+		st.clickSearch();
+	   
+	}
+	@When("User clicks on airline filter")
+	public void user_clicks_on_airline_filter() {
+	    
+	}
+
+
+//------------------------------------Scenario 5------------------------------------------------------------------
+//	@When("the user enters partial city name in From field and To field")
+//	public void the_user_enters_partial_city_name_in_from_field_and_to_field(io.cucumber.datatable.DataTable dataTable)
+//	{ 
+//		partialpage= new PartialTextDataPage(driver);
+//		excel = new ExcelReader();
+//		List<String> list=dataTable.asList(String.class);
+//	    String details[]=excel.loginReader(list.get(0));
+//		partialpage.enterPartialText(excel.cred[0], cred[1]);
+//		
+//	   
+//	}
+	
+//	@When("the user enters partial city name in From field and To field")
+//	public void the_user_enters_partial_city_name_in_from_field_and_to_field(io.cucumber.datatable.DataTable dataTable) throws IOException, AWTException {
+//	    partialpage = new PartialTextDataPage(driver);
+//	    ExcelReader excel = new ExcelReader(); // create instance
+//
+//	    // Extract filename or sheet reference from DataTable
+//	    List<String> sheetRef = dataTable.asList(String.class);
+//
+//	    // Get values from Excel
+//	    String[] cred = excel.loginReader(sheetRef.get(0));
+//
+//	    // Pass to page object method
+//	    partialpage.enterPartialText(cred[0], cred[1]); // assumes method takes two Strings
+		
+		
+		
+//		partialpage = new PartialTextDataPage(driver);
+//        excel = new ExcelReader();
+//
+//        List<String> list = dataTable.asList(String.class);
+//        String[] cred = excel.loginReader(list.get(0));
+//
+//        partialpage.enterPartialText(cred[0], cred[1]);
+
+	}
+
+	
+	@Then("the From field should contain city name")
+	public void the_from_field_should_contain_city_name() throws IOException {
+		String[] cred = excel.loginReader("Data.xlsx");
+        Assert.assertTrue(partialpage.isSuggestionVisible(cred[0]));
+
+	    
+	}
+	@Then("the To field should contain city name")
+	public void the_to_field_should_contain_city_name() throws IOException {
+		String[] cred = excel.loginReader("Data.xlsx");
+        Assert.assertTrue(partialpage.isSuggestionVisible(cred[1]));
+	    
+	}
+
+
+}
